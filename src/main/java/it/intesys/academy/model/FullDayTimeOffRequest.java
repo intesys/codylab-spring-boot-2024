@@ -1,8 +1,10 @@
 package it.intesys.academy.model;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-public class FullDayTimeOffRequest {
+public class FullDayTimeOffRequest implements TimeOffRequest {
     protected LocalDate startDate;
     protected LocalDate endDate;
 
@@ -34,10 +36,12 @@ public class FullDayTimeOffRequest {
         }
     }
 
+    public Duration getDuration() {
+        long daysOff = ChronoUnit.DAYS.between(startDate, endDate);
+        return Duration.ofHours(8).multipliedBy(daysOff + 1);
+    }
+
     public String toString() {
-        return "FullDayTimeOffRequest{" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return "Full Day Time Off (" + startDate + " - " + endDate + ") / " + getDuration().toHours() + "h " + getDuration().toMinutesPart() + "m";
     }
 }
