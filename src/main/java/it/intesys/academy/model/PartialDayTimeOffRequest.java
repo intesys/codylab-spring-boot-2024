@@ -2,16 +2,16 @@ package it.intesys.academy.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class PartialDayTimeOffRequest {
     protected LocalDate date;
-    protected LocalTime start;
-    protected LocalTime end;
+    private List<TimeRange> timeRanges;
 
-    public PartialDayTimeOffRequest(LocalDate date, LocalTime start, LocalTime end) {
+    public PartialDayTimeOffRequest(LocalDate date, List<TimeRange> timeRanges) {
         this.date = date;
-        this.start = start;
-        this.end = end;
+        this.timeRanges = timeRanges;
+        validate();
     }
 
     public LocalDate getDate() {
@@ -22,28 +22,25 @@ public class PartialDayTimeOffRequest {
         this.date = date;
     }
 
-    public LocalTime getStart() {
-        return start;
+    public List<TimeRange> getTimeRanges() {
+        return timeRanges;
     }
 
-    public void setStart(LocalTime start) {
-        this.start = start;
+    public void setTimeRanges(List<TimeRange> timeRanges) {
+        this.timeRanges = timeRanges;
     }
 
-    public LocalTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalTime end) {
-        this.end = end;
+    private void validate() {
+        if (timeRanges.isEmpty()) {
+            throw new IllegalArgumentException("Time ranges list cannot be empty");
+        }
     }
 
     @Override
     public String toString() {
         return "PartialDayTimeOffRequest{" +
                 "date=" + date +
-                ", start=" + start +
-                ", end=" + end +
+                ", timeRanges=" + timeRanges +
                 '}';
     }
 }
