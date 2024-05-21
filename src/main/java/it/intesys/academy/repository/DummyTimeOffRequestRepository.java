@@ -4,6 +4,7 @@ import it.intesys.academy.model.FullDayTimeOffRequest;
 import it.intesys.academy.model.PartialDayTimeOffRequest;
 import it.intesys.academy.model.TimeOffRequest;
 import it.intesys.academy.model.TimeRange;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -21,7 +22,12 @@ public class DummyTimeOffRequestRepository implements TimeOffRepository {
 
   @Override
   public List<TimeOffRequest> getAllTimeOffRequestsFor(Long userId) {
-    return timeOffRequests.get(userId);
+    return timeOffRequests.getOrDefault(userId, List.of());
+  }
+
+  @Override
+  public Duration getAvailableTimeOffForUser(Long userId) {
+    return Duration.ofDays(20);
   }
 
   private Map<Long, List<TimeOffRequest>> init() {
