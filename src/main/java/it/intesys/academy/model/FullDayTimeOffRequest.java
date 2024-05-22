@@ -1,8 +1,11 @@
 package it.intesys.academy.model;
 
+import it.intesys.academy.utils.StringUtils;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 public class FullDayTimeOffRequest implements TimeOffRequest {
     protected LocalDate startDate;
@@ -31,6 +34,9 @@ public class FullDayTimeOffRequest implements TimeOffRequest {
     }
 
     public void validateDates() {
+        Objects.requireNonNull(startDate, "From date cannot be null");
+        Objects.requireNonNull(endDate, "End date cannot be null");
+
         if(startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("Start date cannot be after end date");
         }
@@ -42,6 +48,6 @@ public class FullDayTimeOffRequest implements TimeOffRequest {
     }
 
     public String toString() {
-        return "Full Day Time Off (" + startDate + " - " + endDate + ") / " + getDuration().toHours() + "h " + getDuration().toMinutesPart() + "m";
+        return "Full Day Time Off (" + startDate + " - " + endDate + ") / " + StringUtils.format(getDuration());
     }
 }
