@@ -6,6 +6,7 @@ import it.intesys.academy.controller.TimeOffController;
 import java.util.Properties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
 
 public class TimeOffTracker {
 
@@ -13,12 +14,12 @@ public class TimeOffTracker {
 
         ApplicationContext springContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
 
+        Environment environment = springContext.getEnvironment();
         TimeOffController timeOffController = springContext.getBean(TimeOffController.class);
-        Properties props = springContext.getBean("appProperties", Properties.class);
 
         var app = Javalin.create(/*config*/)
             .get("/balance", timeOffController::getTimeOffRequests)
-            .start(Integer.parseInt(props.getProperty("app.port")));
+            .start(environment.getProperty("app.port", Integer.class));
     }
 
 
