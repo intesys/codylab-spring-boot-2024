@@ -19,7 +19,10 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+@Component
 public class SQLTimeOffRepository implements TimeOffRepository {
 
   private static final Logger log = LoggerFactory.getLogger(SQLTimeOffRepository.class);

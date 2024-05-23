@@ -4,7 +4,10 @@ import io.javalin.http.Context;
 import io.javalin.validation.Validator;
 import it.intesys.academy.dto.TimeOffBalance;
 import it.intesys.academy.service.TimeOffService;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+@Component
 public class TimeOffController {
 
   private final TimeOffService timeOffService;

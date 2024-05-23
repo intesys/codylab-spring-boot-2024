@@ -11,7 +11,10 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+@Component
 public class DummyTimeOffRequestRepository implements TimeOffRepository {
 
   private final Map<Long, List<TimeOffRequest>> timeOffRequests;

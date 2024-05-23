@@ -8,6 +8,7 @@ import it.intesys.academy.repository.TimeOffRepository;
 import it.intesys.academy.service.TimeOffService;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -15,8 +16,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Configuration
 @PropertySource("classpath:application.properties")
+@ComponentScan("it.intesys.academy")
 public class AppConfiguration {
-
 
     @Bean
     public DataSource dataSource(Environment environment) {
@@ -33,19 +34,5 @@ public class AppConfiguration {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 
-    @Bean
-    public TimeOffRepository timeOffRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        return new SQLTimeOffRepository(namedParameterJdbcTemplate);
-    }
-
-    @Bean
-    public TimeOffService timeOffService(TimeOffRepository timeOffRepository) {
-        return new TimeOffService(timeOffRepository);
-    }
-
-    @Bean
-    public TimeOffController timeOffController(TimeOffService timeOffService) {
-        return new TimeOffController(timeOffService);
-    }
 
 }
