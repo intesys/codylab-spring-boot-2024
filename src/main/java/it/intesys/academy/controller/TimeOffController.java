@@ -1,13 +1,12 @@
 package it.intesys.academy.controller;
 
-import io.javalin.http.Context;
-import io.javalin.validation.Validator;
 import it.intesys.academy.dto.TimeOffBalance;
 import it.intesys.academy.service.TimeOffService;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Component
+@RestController
 public class TimeOffController {
 
   private final TimeOffService timeOffService;
@@ -16,15 +15,12 @@ public class TimeOffController {
     this.timeOffService = timeOffService;
   }
 
-  public void getTimeOffRequests(Context httpContext) {
-    Validator<Long> userId = httpContext.queryParamAsClass("userId", Long.class);
-    if (!userId.hasValue()) {
+  @GetMapping("/balance")
+  public TimeOffBalance getTimeOffRequests(@RequestParam("userId") Long userId) {
+    if (userId == null) {
       throw new IllegalArgumentException("Missing user id");
     }
-
-    TimeOffBalance timeOffBalance = timeOffService.getTimeOffBalance(userId.get());
-
-    httpContext.json(timeOffBalance);
+    return timeOffService.getTimeOffBalance(userId);
   }
 
 
