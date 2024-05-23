@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class AppConfiguration {
 
@@ -25,13 +27,17 @@ public class AppConfiguration {
         return appProperties;
     }
 
-    public static DataSource dataSource() {
+    private static DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(appProperties().getProperty("database.url"));
         hikariConfig.setUsername(appProperties().getProperty("database.user"));
         hikariConfig.setPassword(appProperties().getProperty("database.password"));
         hikariConfig.setDriverClassName("org.h2.Driver");
         return new HikariDataSource(hikariConfig);
+    }
+
+    public static NamedParameterJdbcTemplate jdbcTemplate() {
+        return new NamedParameterJdbcTemplate(dataSource());
     }
 
 }

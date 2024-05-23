@@ -11,7 +11,7 @@ public class TimeOffTracker {
 
     public static void main(String[] args) {
 
-        TimeOffRepository timeOffRepository = new SQLTimeOffRepository(AppConfiguration.dataSource());
+        TimeOffRepository timeOffRepository = new SQLTimeOffRepository(AppConfiguration.jdbcTemplate());
         TimeOffService timeOffService = new TimeOffService(timeOffRepository);
         TimeOffController timeOffController = new TimeOffController(timeOffService);
 
