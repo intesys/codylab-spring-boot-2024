@@ -23,10 +23,16 @@
         <slf4j.version>2.0.13</slf4j.version>
         <hikari.version>5.0.1</hikari.version>
         <h2.version>2.1.214</h2.version>
+        <spring.version>6.1.6</spring.version>
 
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.javalin</groupId>
             <artifactId>javalin-bundle</artifactId>

@@ -6,26 +6,23 @@ import it.intesys.academy.model.TimeOffRequest;
 import it.intesys.academy.model.TimeRange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SQLTimeOffRepository implements TimeOffRepository {
 
     private static final Logger log = LoggerFactory.getLogger(SQLTimeOffRepository.class);
 
-    private final DataSource dataSource;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public SQLTimeOffRepository(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public SQLTimeOffRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -51,35 +48,18 @@ public class SQLTimeOffRepository implements TimeOffRepository {
 
     @Override
     public Duration getAvailableTimeOffForUser(Long userId) {
-        ResultSet resultSet = null;
-        ResultSet resultSetIssues = null;
+        Long availableTimeOff = jdbcTemplate.queryForObject(
+                "SELECT available_time_off FROM yuser WHERE id = :userId",
+                Map.of("userId", userId),
+                Long.class
+        );
 
-        long availableTimeOff = 0;
-
-        try (Connection conn = dataSource.getConnection()) {
-
-            PreparedStatement psProject = conn.prepareStatement(
-                    "SELECT id, available_time_off FROM yuser WHERE id = ?"
-            );
-
-            psProject.setObject(1, userId);
-            resultSet = psProject.executeQuery();
-
-            while (resultSet.next()) {
-                availableTimeOff += resultSet.getLong("available_time_off");
-                break;
-            }
-
-        }catch (SQLException e) {
-            log.error("SQLException", e);
-        } catch (Exception e) {
-            log.error("Exception", e);
-        } finally {
-            DatabaseManager.closeResultSet(resultSet);
-            DatabaseManager.closeResultSet(resultSetIssues);
+        if (availableTimeOff == null) {
+            return Duration.ZERO;
         }
 
         return Duration.ofDays(availableTimeOff);
+
     }
 
 
