@@ -4,14 +4,17 @@ import it.intesys.academy.dto.TimeOffBalanceDTO;
 import it.intesys.academy.model.TimeOffRequest;
 import it.intesys.academy.repository.TimeOffRepository;
 import it.intesys.academy.utils.StringUtils;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
 
+@Service
 public class TimeOffService {
     private final TimeOffRepository timeOffRepository;
 
-    public TimeOffService(TimeOffRepository timeOffRepository) {
+    public TimeOffService(@Qualifier("SQLTimeOffRepository") TimeOffRepository timeOffRepository) {
         this.timeOffRepository = timeOffRepository;
     }
 

@@ -2,11 +2,8 @@ package it.intesys.academy.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import it.intesys.academy.controller.TimeOffController;
-import it.intesys.academy.repository.SQLTimeOffRepository;
-import it.intesys.academy.repository.TimeOffRepository;
-import it.intesys.academy.service.TimeOffService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -17,6 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @PropertySource("classpath:application.properties")
+@ComponentScan("it.intesys.academy")
 public class AppConfiguration {
 
     @Bean
@@ -32,20 +30,5 @@ public class AppConfiguration {
     @Bean
     public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
-    }
-
-    @Bean
-    public TimeOffRepository timeOffRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        return new SQLTimeOffRepository(namedParameterJdbcTemplate);
-    }
-
-    @Bean
-    public TimeOffService timeOffService(TimeOffRepository timeOffRepository) {
-        return new TimeOffService(timeOffRepository);
-    }
-
-    @Bean
-    public TimeOffController timeOffController(TimeOffService timeOffService) {
-        return new TimeOffController(timeOffService);
     }
 }
