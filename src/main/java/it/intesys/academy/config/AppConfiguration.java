@@ -6,6 +6,8 @@ import it.intesys.academy.controller.TimeOffController;
 import it.intesys.academy.repository.SQLTimeOffRepository;
 import it.intesys.academy.repository.TimeOffRepository;
 import it.intesys.academy.service.TimeOffService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
@@ -14,9 +16,11 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class AppConfiguration {
+
     public static Properties appProperties;
 
-    public static Properties appProperties() {
+    @Bean
+    public Properties appProperties() {
         if (appProperties == null) {
             Properties prop = new Properties();
             try (InputStream input = AppConfiguration.class.getClassLoader().getResourceAsStream("application.properties")) {
@@ -30,28 +34,33 @@ public class AppConfiguration {
         return appProperties;
     }
 
-    private static DataSource dataSource() {
+    @Bean
+    private DataSource dataSource(@Qualifier("appProperties") Properties appProperties) {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(appProperties().getProperty("database.url"));
-        hikariConfig.setUsername(appProperties().getProperty("database.user"));
-        hikariConfig.setPassword(appProperties().getProperty("database.password"));
+        hikariConfig.setJdbcUrl(appProperties.getProperty("database.url"));
+        hikariConfig.setUsername(appProperties.getProperty("database.user"));
+        hikariConfig.setPassword(appProperties.getProperty("database.password"));
         hikariConfig.setDriverClassName("org.h2.Driver");
         return new HikariDataSource(hikariConfig);
     }
 
-    public static NamedParameterJdbcTemplate jdbcTemplate() {
-        return new NamedParameterJdbcTemplate(dataSource());
+    @Bean
+    public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public static TimeOffRepository timeOffRepository() {
-        return new SQLTimeOffRepository(jdbcTemplate());
+    @Bean
+    public TimeOffRepository timeOffRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        return new SQLTimeOffRepository(namedParameterJdbcTemplate);
     }
 
-    public static TimeOffService timeOffService() {
-        return new TimeOffService(timeOffRepository());
+    @Bean
+    public TimeOffService timeOffService(TimeOffRepository timeOffRepository) {
+        return new TimeOffService(timeOffRepository);
     }
 
-    public static TimeOffController timeOffController() {
-        return new TimeOffController(timeOffService());
+    @Bean
+    public TimeOffController timeOffController(TimeOffService timeOffService) {
+        return new TimeOffController(timeOffService);
     }
 }
