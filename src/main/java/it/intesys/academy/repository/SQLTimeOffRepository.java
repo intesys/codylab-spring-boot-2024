@@ -4,10 +4,11 @@ import it.intesys.academy.model.FullDayTimeOffRequest;
 import it.intesys.academy.model.PartialDayTimeOffRequest;
 import it.intesys.academy.model.TimeOffRequest;
 import it.intesys.academy.model.TimeRange;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,12 +16,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.sql.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Component
 public class SQLTimeOffRepository implements TimeOffRepository {
