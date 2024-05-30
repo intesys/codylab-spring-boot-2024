@@ -1,0 +1,29 @@
+{{>header}}
+
+<div class="row center-align">
+    <h3>List of users</h3>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td><a href="/mvc/user/{{id}}">{{id}}</a></td>
+            <td>{{name}}</td>
+            <td>{{surname}}</td>
+            <td>{{username}}</td>
+            <td>{{email}}</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
+
+{{>footer}}
