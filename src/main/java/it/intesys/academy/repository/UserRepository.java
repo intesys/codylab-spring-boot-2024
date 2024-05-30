@@ -8,4 +8,6 @@ public interface UserRepository {
 
     public List<User> findAll();
 
+    public User findUser(long id);
+
 }

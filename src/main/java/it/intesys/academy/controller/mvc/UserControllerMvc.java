@@ -1,11 +1,10 @@
 package it.intesys.academy.controller.mvc;
 
-import it.intesys.academy.dto.UserDTO;
 import it.intesys.academy.service.UserService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -28,9 +27,9 @@ public class UserControllerMvc {
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathParam("id") Long id, Model model) {
+    public String getUser(@PathVariable("id") String id, Model model) {
 
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute("user", userService.getUser( Long.valueOf(id) ));
 
         return "user";
 
