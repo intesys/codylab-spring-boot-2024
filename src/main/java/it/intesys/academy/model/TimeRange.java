@@ -1,19 +1,27 @@
 package it.intesys.academy.model;
 
+import lombok.Data;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+@Data
 public class TimeRange {
 
+  private Long id;
   private LocalTime start;
   private LocalTime end;
+  private Long PartialDayId;
 
   public TimeRange(LocalTime start, LocalTime end) {
     this.start = start;
     this.end = end;
     validate();
+  }
+
+  public TimeRange() {
   }
 
   private void validate() {
@@ -22,22 +30,6 @@ public class TimeRange {
     if (start.isAfter(end)) {
       throw new IllegalArgumentException("From time cannot be after end time");
     }
-  }
-
-  public LocalTime getFrom() {
-    return start;
-  }
-
-  public void setFrom(LocalTime from) {
-    this.start = from;
-  }
-
-  public LocalTime getTo() {
-    return end;
-  }
-
-  public void setTo(LocalTime to) {
-    this.end = to;
   }
 
   public Duration duration() {

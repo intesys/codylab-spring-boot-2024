@@ -15,6 +15,59 @@
     </tr>
     </thead>
     <tbody>
+        <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.surname}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row center-align">
+    <h3>Full day time off</h3>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>From</th>
+        <th>To</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#fullDayTimeOff}}
+        <tr>
+            <td>{{this.start}}</td>
+            <td>{{this.end}}</td>
+        </tr>
+    {{/fullDayTimeOff}}
+    </tbody>
+</table>
+
+<div class="row center-align">
+    <h3>Partial day time off</h3>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>From</th>
+        <th>To</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#partialDayTimeOff}}
+        <tr>
+            <td>{{timeOffDay}}</td>
+            {{#timeRanges}}
+                <td>{{start}}</td>
+                <td>{{end}}</td>
+            {{/timeRanges}}
+        </tr>
+    {{/partialDayTimeOff}}
     </tbody>
 </table>
 

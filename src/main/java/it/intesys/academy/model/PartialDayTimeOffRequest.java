@@ -1,21 +1,30 @@
 package it.intesys.academy.model;
 
 import it.intesys.academy.utils.StringUtils;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class PartialDayTimeOffRequest extends AnnotatedTimeOffRequest {
 
+  private long id;
   private LocalDate timeOffDay;
   private List<TimeRange> timeRanges;
+  private long userId;
 
   public PartialDayTimeOffRequest(LocalDate timeOffDay, List<TimeRange> timeRanges) {
     this.timeOffDay = timeOffDay;
     this.timeRanges = timeRanges;
     validate();
+  }
+  public PartialDayTimeOffRequest() {
   }
 
   private void validate() {
@@ -25,22 +34,6 @@ public class PartialDayTimeOffRequest extends AnnotatedTimeOffRequest {
     if (timeRanges.isEmpty()) {
       throw new IllegalArgumentException("Time ranges list cannot be empty");
     }
-  }
-
-  public LocalDate getLocalDate() {
-    return timeOffDay;
-  }
-
-  public void setLocalDate(LocalDate localDate) {
-    this.timeOffDay = localDate;
-  }
-
-  public List<TimeRange> getTimeRanges() {
-    return timeRanges;
-  }
-
-  public void setTimeRanges(List<TimeRange> timeRanges) {
-    this.timeRanges = timeRanges;
   }
 
   @Override
@@ -58,7 +51,7 @@ public class PartialDayTimeOffRequest extends AnnotatedTimeOffRequest {
   @Override
   public String toString() {
     var timeRangeString = timeRanges.stream()
-        .map(tr->tr.getFrom() + " - " + tr.getTo())
+        .map(tr->tr.getStart() + " - " + tr.getEnd())
         .collect(Collectors.joining(","));
     return "Partial Day Time Off (" + timeOffDay + " [" + timeRangeString + "]) / " + StringUtils.format(getDuration());
   }

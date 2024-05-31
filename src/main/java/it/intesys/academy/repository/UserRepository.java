@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface UserRepository {
 
-    public List<User> findAll();
+    List<User> findAll();
+
+    User findUser(Long id);
 
 }

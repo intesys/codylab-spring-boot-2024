@@ -1,11 +1,11 @@
 package it.intesys.academy.controller.mvc;
 
-import it.intesys.academy.dto.UserDTO;
+import it.intesys.academy.service.TimeOffService;
 import it.intesys.academy.service.UserService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserControllerMvc {
 
     private final UserService userService;
+    private final TimeOffService timeOffService;
 
-    public UserControllerMvc(UserService userService) {
+    public UserControllerMvc(UserService userService, TimeOffService timeOffService) {
         this.userService = userService;
+        this.timeOffService = timeOffService;
     }
 
     @GetMapping("/all")
@@ -28,14 +30,14 @@ public class UserControllerMvc {
     }
 
     @GetMapping("/{id}")
-    public String getUser(@PathParam("id") Long id, Model model) {
+    public String getUser(Model model, @PathVariable("id") Long id) {
 
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("fullDayTimeOff", timeOffService.getFullDayTimeOffByUserId(id));
+        model.addAttribute("partialDayTimeOff", timeOffService.getPartialDayTimeOffByUserId(id));
 
         return "user";
 
     }
-
-
 
 }

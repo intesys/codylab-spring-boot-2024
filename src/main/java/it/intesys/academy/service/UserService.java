@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,6 +19,10 @@ public class UserService {
 
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream().map(UserModelMapper::fromEntityToDTO).collect(Collectors.toList());
+    }
+
+    public UserDTO getUser(Long id) {
+        return UserModelMapper.fromEntityToDTO(userRepository.findUser(id));
     }
 
 }
