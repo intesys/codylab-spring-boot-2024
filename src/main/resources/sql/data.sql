@@ -7,3 +7,7 @@ insert into partial_day_timeoff (date, user_id) values ( '2024-01-15', 1);
 insert into time_range (time_from, time_to, partial_day_id) values ( '09:00:00', '12:00:00', 1 );
 
 insert into time_range (time_from, time_to, partial_day_id) values ( '17:00:00', '18:00:00', 1 );
+
+insert into yuser (username, name, surname, email) values ( 'abenettoni', 'anna', 'benettoni', 'anna.benettoni@intesys.it');
+
+insert into yuser (username, name, surname, email) values ( 'timran', 'talha', 'imran', 'talha.imran@intesys.it');

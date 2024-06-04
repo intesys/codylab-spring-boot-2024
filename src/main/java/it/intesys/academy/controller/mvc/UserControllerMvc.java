@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+//@Controller restituisce dei dati
 @Controller
 @RequestMapping(path = "/mvc/user")
 public class UserControllerMvc {
@@ -24,7 +25,6 @@ public class UserControllerMvc {
         model.addAttribute("users", userService.getAllUsers());
 
         return "users";
-
     }
 
     @GetMapping("/{id}")
