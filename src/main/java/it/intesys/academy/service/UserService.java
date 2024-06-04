@@ -21,4 +21,8 @@ public class UserService {
         return userRepository.findAll().stream().map(UserModelMapper::fromEntityToDTO).collect(Collectors.toList());
     }
 
+    public UserDTO getUser(long id) {
+        return UserModelMapper.fromEntityToDTO(userRepository.findUser(id));
+    }
+
 }

@@ -24,4 +24,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     }
 
+    @Override
+    public User findUser(long id) {
+
+        return jdbcTemplate.queryForObject("SELECT * FROM YUSER WHERE ID = ?", new UserRowMapper(), id);
+
+    }
+
 }
