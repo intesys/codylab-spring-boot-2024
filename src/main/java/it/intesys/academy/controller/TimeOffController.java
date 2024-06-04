@@ -1,20 +1,18 @@
 package it.intesys.academy.controller;
 
-import it.intesys.academy.dto.TimeOffBalance;
-import it.intesys.academy.service.TimeOffService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import it.intesys.academy.service.PartialDayTimeOffService;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TimeOffController {
 
-  private final TimeOffService timeOffService;
+  private final PartialDayTimeOffService timeOffService;
 
-  public TimeOffController(TimeOffService timeOffService) {
+  public TimeOffController(PartialDayTimeOffService timeOffService) {
     this.timeOffService = timeOffService;
   }
 
+  /*
   @GetMapping("/balance")
   public TimeOffBalance getTimeOffRequests(@RequestParam("userId") Long userId) {
     if (userId == null) {
@@ -22,6 +20,6 @@ public class TimeOffController {
     }
     return timeOffService.getTimeOffBalance(userId);
   }
-
+   */
 
 }
