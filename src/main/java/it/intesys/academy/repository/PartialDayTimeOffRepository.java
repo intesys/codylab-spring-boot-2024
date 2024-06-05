@@ -8,4 +8,6 @@ public interface PartialDayTimeOffRepository {
 
     List<PartialDayTimeOff> findPartialDaysForUser(long idUser);
 
+    void deletePartialDayTimeOff(long id);
+
 }

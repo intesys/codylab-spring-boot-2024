@@ -1,7 +1,7 @@
 package it.intesys.academy.service;
 
 import it.intesys.academy.dto.UserDTO;
-import it.intesys.academy.mapper.UserModelMapper;
+import it.intesys.academy.mapper.dto.UserModelMapper;
 import it.intesys.academy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

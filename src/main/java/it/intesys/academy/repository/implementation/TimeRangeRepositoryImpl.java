@@ -24,4 +24,9 @@ public class TimeRangeRepositoryImpl implements TimeRangeRepository {
 
     }
 
+    @Override
+    public void deleteTimeRange(long id) {
+        jdbcTemplate.update("DELETE FROM TIME_RANGE WHERE id = ?", id);
+    }
+
 }

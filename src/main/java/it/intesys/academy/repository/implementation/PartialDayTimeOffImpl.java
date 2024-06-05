@@ -24,4 +24,9 @@ public class PartialDayTimeOffImpl implements PartialDayTimeOffRepository {
 
     }
 
+    @Override
+    public void deletePartialDayTimeOff(long id) {
+        jdbcTemplate.update("DELETE FROM PARTIAL_DAY_TIMEOFF WHERE id = ?", id);
+    }
+
 }

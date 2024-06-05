@@ -8,4 +8,6 @@ public interface TimeRangeRepository {
 
     List<TimeRange> findTimeRange(long partialDayTimeoff);
 
+    void deleteTimeRange(long id);
+
 }

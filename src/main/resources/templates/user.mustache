@@ -25,4 +25,27 @@
     </tbody>
 </table>
 
+<table>
+    <thead>
+    <tr>
+        <th>Cancella</th>
+        <th>Data</th>
+        <th>Permessi</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#partialDayTimeOffs}}
+    <tr>
+        <td><a href="/mvc/user/partial-time-off/delete/{{id}}">{{id}}</a></td>
+        <td>{{date}}</td>
+        <td>
+            {{#timeRangeDTOList}}
+                {{from}} - {{to}} <br/>
+            {{/timeRangeDTOList}}
+        </td>
+    </tr>
+    {{/partialDayTimeOffs}}
+    </tbody>
+</table>
+
 {{>footer}}
