@@ -38,9 +38,9 @@ public class UserControllerMvc {
     @GetMapping("/{id}")
     public String getUser(@PathVariable("id") String id, Model model) {
 
-        model.addAttribute("user", userService.getUser( Long.valueOf(id) ));
+        model.addAttribute("user", userService.getUser( Long.parseLong(id) ));
 
-        model.addAttribute("partialDayTimeOffs", partialDayTimeOffService.getPartialDayTimeoff( Long.valueOf(id) ));
+        model.addAttribute("partialDayTimeOffs", partialDayTimeOffService.getPartialDayTimeoff( Long.parseLong(id) ));
 
         return "user";
 
@@ -50,9 +50,9 @@ public class UserControllerMvc {
     public String deletePartialTimeOff(@PathVariable("id") String idPartialTimeOff,
                                        @PathVariable("idUser") String userId) {
 
-        partialDayTimeOffService.deletePartialDayTimeOff( Long.valueOf(idPartialTimeOff));
+        partialDayTimeOffService.deletePartialDayTimeOff( Long.parseLong(idPartialTimeOff));
 
-        return "redirect:/mvc/user/" + String.valueOf(userId);
+        return "redirect:/mvc/user/" + userId;
 
     }
 

@@ -4,7 +4,6 @@ import it.intesys.academy.dto.PartialDayTimeOffDTO;
 import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
 import it.intesys.academy.model.PartialDayTimeOff;
 import it.intesys.academy.repository.PartialDayTimeOffRepository;
-import it.intesys.academy.repository.TimeRangeRepository;
 import it.intesys.academy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,10 @@ public class PartialDayTimeOffService {
 
   private final UserRepository userRepository;
 
-  private final TimeRangeRepository timeRangeRepository;
-
-  public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository, UserRepository userRepository, TimeRangeRepository timeRangeRepository) {
+  public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository,
+                                  UserRepository userRepository) {
     this.partialDayTimeOffRepository = partialDayTimeOffRepository;
       this.userRepository = userRepository;
-      this.timeRangeRepository = timeRangeRepository;
   }
 
   public List<PartialDayTimeOffDTO> getPartialDayTimeoff(long userId) {

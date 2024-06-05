@@ -15,8 +15,8 @@ public class TimeRangeModelMapper {
 
         TimeRange timeRange = ModelMapperUtils.modelMapper.map(timeRangeDTO, TimeRange.class);
 
-        timeRange.setFrom(LocalTime.parse(timeRangeDTO.getFrom(), DateTimeFormatter.ofPattern("HH:MM")));
-        timeRange.setTo(LocalTime.parse(timeRangeDTO.getTo(), DateTimeFormatter.ofPattern("HH:MM")));
+        timeRange.setFrom(LocalTime.parse(timeRangeDTO.getFrom(), DateTimeFormatter.ofPattern("HH:mm")));
+        timeRange.setTo(LocalTime.parse(timeRangeDTO.getTo(), DateTimeFormatter.ofPattern("HH:mm")));
 
         return timeRange;
     }
