@@ -2,13 +2,15 @@ package it.intesys.academy.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -21,6 +23,6 @@ public class PartialDayTimeOff {
 
     private @ManyToOne @JoinColumn(name = "USER_ID") User user;
 
-    private @OneToMany(mappedBy = "partialDayTimeOff", fetch = FetchType.EAGER) List<TimeRange> timeRangeList;
+    private @OneToMany(mappedBy = "partialDayTimeOff", fetch = FetchType.LAZY) List<TimeRange> timeRangeList;
 
 }
