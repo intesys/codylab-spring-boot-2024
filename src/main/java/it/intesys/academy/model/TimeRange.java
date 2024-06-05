@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Table(name = "TIME_RANGE")
 public class TimeRange {
 
-    private @Id long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
 
     private @Column(name = "time_from") LocalTime from;
 

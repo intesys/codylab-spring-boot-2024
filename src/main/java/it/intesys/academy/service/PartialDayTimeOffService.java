@@ -5,6 +5,7 @@ import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
 import it.intesys.academy.model.PartialDayTimeOff;
 import it.intesys.academy.repository.PartialDayTimeOffRepository;
 import it.intesys.academy.repository.TimeRangeRepository;
+import it.intesys.academy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +16,14 @@ public class PartialDayTimeOffService {
 
   private final PartialDayTimeOffRepository partialDayTimeOffRepository;
 
+  private final UserRepository userRepository;
+
   private final TimeRangeRepository timeRangeRepository;
 
-  public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository, TimeRangeRepository timeRangeRepository) {
+  public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository, UserRepository userRepository, TimeRangeRepository timeRangeRepository) {
     this.partialDayTimeOffRepository = partialDayTimeOffRepository;
-    this.timeRangeRepository = timeRangeRepository;
+      this.userRepository = userRepository;
+      this.timeRangeRepository = timeRangeRepository;
   }
 
   public List<PartialDayTimeOffDTO> getPartialDayTimeoff(long userId) {
@@ -30,15 +34,20 @@ public class PartialDayTimeOffService {
 
   }
 
+  public void save(PartialDayTimeOffDTO partialDayTimeOffDTO, long userId) {
+
+    PartialDayTimeOff partialDayTimeOff = PartialDayTimeOffModelMapper.fromDTOtoEntity(partialDayTimeOffDTO);
+
+    partialDayTimeOff.setUser(userRepository.findById(userId).get());
+
+    partialDayTimeOffRepository.save(partialDayTimeOff);
+
+  }
+
   public void deletePartialDayTimeOff(long idPartialDayTimeOff) {
 
-    /*
-    timeRangeRepository.findTimeRange(idPartialDayTimeOff).forEach(
-            timeRange -> timeRangeRepository.deleteTimeRange(timeRange.getId())
-    );
+    partialDayTimeOffRepository.deleteById(idPartialDayTimeOff);
 
-    partialDayTimeOffRepository.deletePartialDayTimeOff(idPartialDayTimeOff);
-    */
   }
 
 }

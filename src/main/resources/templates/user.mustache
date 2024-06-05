@@ -30,7 +30,7 @@
 <table>
     <thead>
     <tr>
-        <th>Cancella</th>
+        <th width="20%">Cancella</th>
         <th>Data</th>
         <th>Permessi</th>
     </tr>
@@ -38,7 +38,7 @@
     <tbody>
     {{#partialDayTimeOffs}}
     <tr>
-        <td><a href="/mvc/user/partial-time-off/delete/{{id}}">Cancella questo permesso</a></td>
+        <td><a href="/mvc/user/partial-day-timeoff/delete/{{id}}/user/{{user.id}}">Cancella questo permesso</a></td>
         <td>{{date}}</td>
         <td>
             {{#timeRangeDTOList}}
@@ -49,5 +49,11 @@
     {{/partialDayTimeOffs}}
     </tbody>
 </table>
+
+<br/><br/><br/><br/>
+
+<form action="/mvc/user/partial-day-timeoff/add" method="post">
+    <input type="submit" value="Inserisci richiesta">
+</form>
 
 {{>footer}}

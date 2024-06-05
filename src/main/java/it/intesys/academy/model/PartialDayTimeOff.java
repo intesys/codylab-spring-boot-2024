@@ -17,12 +17,12 @@ import java.util.List;
 @Table(name = "PARTIAL_DAY_TIMEOFF")
 public class PartialDayTimeOff {
 
-    private @Id long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
 
     private @Column LocalDate date;
 
     private @ManyToOne @JoinColumn(name = "USER_ID") User user;
 
-    private @OneToMany(mappedBy = "partialDayTimeOff", fetch = FetchType.LAZY) List<TimeRange> timeRangeList;
+    private @OneToMany(mappedBy = "partialDayTimeOff", fetch = FetchType.LAZY, cascade = CascadeType.ALL)  List<TimeRange> timeRangeList;
 
 }
