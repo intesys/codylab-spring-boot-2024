@@ -14,4 +14,12 @@ public class FullDayTimeOffDTO {
     private LocalDate start;
     private LocalDate end;
 
+//    public void setFormattedStartDate() {
+//       start = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//    }
+//
+//    public void setFormattedEndDate() {
+//        end = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//    }
+
 }

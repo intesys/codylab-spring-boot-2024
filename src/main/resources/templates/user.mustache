@@ -39,6 +39,7 @@
     <tbody>
     {{#fullDayTimeOff}}
         <tr>
+            <td><a href="/mvc/user/deleteFullDayTimeOff/{{id}}">{{id}}</a></td>
             <td>{{this.start}}</td>
             <td>{{this.end}}</td>
         </tr>
@@ -53,6 +54,7 @@
 <table>
     <thead>
     <tr>
+        <th>id</th>
         <th>Date</th>
         <th>From</th>
         <th>To</th>
@@ -60,13 +62,14 @@
     </thead>
     <tbody>
     {{#partialDayTimeOff}}
-        <tr>
-            <td>{{timeOffDay}}</td>
-            {{#timeRanges}}
+        {{#timeRanges}}
+            <tr>
+                <td><a href="/mvc/user/deletePartialDayTimeOffTimeRange/{{id}}">{{id}}</a></td>
+                <td>{{timeOffDay}}</td>
                 <td>{{start}}</td>
                 <td>{{end}}</td>
-            {{/timeRanges}}
-        </tr>
+            </tr>
+        {{/timeRanges}}
     {{/partialDayTimeOff}}
     </tbody>
 </table>

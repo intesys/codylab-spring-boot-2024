@@ -2,10 +2,13 @@ package it.intesys.academy.service;
 
 import it.intesys.academy.dto.FullDayTimeOffDTO;
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
-import it.intesys.academy.dto.TimeOffBalance;
-import it.intesys.academy.mapper.FullDayTimeOffModelMapper;
-import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
+import it.intesys.academy.dto.TimeOffBalanceDTO;
+import it.intesys.academy.dto.TimeRangeDTO;
+import it.intesys.academy.mapper.dto.FullDayTimeOffModelMapper;
+import it.intesys.academy.mapper.dto.PartialDayTimeOffModelMapper;
+import it.intesys.academy.mapper.dto.TimeRangeModelMapper;
 import it.intesys.academy.model.TimeOffRequest;
+import it.intesys.academy.model.TimeRange;
 import it.intesys.academy.repository.SQLTimeOffRepository;
 import it.intesys.academy.repository.TimeOffRepository;
 import it.intesys.academy.utils.StringUtils;
@@ -27,11 +30,11 @@ public class TimeOffService {
     this.sqlTimeOffRepository = sqlTimeOffRepository;
   }
 
-  public TimeOffBalance getTimeOffBalance(Long userId) {
+  public TimeOffBalanceDTO getTimeOffBalance(Long userId) {
     Duration takenTimeOff = getTimeOffDurationForUser(userId);
     Duration availableTimeOffForUser = timeOffRepository.getAvailableTimeOffForUser(userId);
 
-    return new TimeOffBalance(
+    return new TimeOffBalanceDTO(
             StringUtils.format(takenTimeOff),
             StringUtils.format(availableTimeOffForUser),
             StringUtils.format(availableTimeOffForUser.minus(takenTimeOff))
@@ -56,8 +59,34 @@ public class TimeOffService {
   }
 
   public List<PartialDayTimeOffDTO> getPartialDayTimeOffByUserId(Long userId) {
-    return sqlTimeOffRepository.getPartialDayTimeOffByUserId(userId).stream().map(PartialDayTimeOffModelMapper::fromEntityToDTO).collect(Collectors.toList());
+    List<PartialDayTimeOffDTO> partialDayTimeOffByUserId = sqlTimeOffRepository.getPartialDayTimeOffByUserId(userId).stream().map(PartialDayTimeOffModelMapper::fromEntityToDTO).collect(Collectors.toList());
+
+    for (PartialDayTimeOffDTO partialDayTimeOffDTO : partialDayTimeOffByUserId) {
+      Long partialDayId = partialDayTimeOffDTO.getId();
+      List<TimeRangeDTO> timeRanges = sqlTimeOffRepository.getTimeRangesByPartialDayId(partialDayId).stream().map(TimeRangeModelMapper::fromEntityToDTO).collect(Collectors.toList());
+      partialDayTimeOffDTO.setTimeRanges(timeRanges);
+    }
+
+    return partialDayTimeOffByUserId;
   }
 
+  public void deletePartialDayTimeOffTimeRange(Long id) {
+    Long partialDayTimeOffId = sqlTimeOffRepository.getPartialDayTimeOffIdByTimeRangeId(id)
+            .stream()
+            .map(TimeRange::getPartialDayId)
+            .findFirst()
+            .orElse(null);
+
+    sqlTimeOffRepository.deleteTimeRange(id);
+
+    if (sqlTimeOffRepository.getTimeRangesByPartialDayId(partialDayTimeOffId).isEmpty()) {
+      sqlTimeOffRepository.deletePartialDayTimeOff(partialDayTimeOffId);
+    }
+  }
+  public void deleteFullDayTimeOff(Long id) {
+
+    sqlTimeOffRepository.deleteFullDayTimeOff(id);
+
+  }
 
 }

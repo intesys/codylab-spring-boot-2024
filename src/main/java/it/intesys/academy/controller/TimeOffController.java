@@ -1,6 +1,6 @@
 package it.intesys.academy.controller;
 
-import it.intesys.academy.dto.TimeOffBalance;
+import it.intesys.academy.dto.TimeOffBalanceDTO;
 import it.intesys.academy.service.TimeOffService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +16,7 @@ public class TimeOffController {
   }
 
   @GetMapping("/balance")
-  public TimeOffBalance getTimeOffRequests(@RequestParam("userId") Long userId) {
+  public TimeOffBalanceDTO getTimeOffRequests(@RequestParam("userId") Long userId) {
     if (userId == null) {
       throw new IllegalArgumentException("Missing user id");
     }

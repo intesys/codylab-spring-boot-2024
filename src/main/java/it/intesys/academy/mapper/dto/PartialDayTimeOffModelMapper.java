@@ -1,4 +1,4 @@
-package it.intesys.academy.mapper;
+package it.intesys.academy.mapper.dto;
 
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
 import it.intesys.academy.model.PartialDayTimeOffRequest;

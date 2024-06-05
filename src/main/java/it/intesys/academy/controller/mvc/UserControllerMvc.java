@@ -40,4 +40,16 @@ public class UserControllerMvc {
 
     }
 
+    @GetMapping("/deletePartialDayTimeOffTimeRange/{id}")
+    public String deletePartialDayTimeOffTimeRange(@PathVariable("id") Long id) {
+        timeOffService.deletePartialDayTimeOffTimeRange(id);
+        return "success";
+    }
+
+    @GetMapping("/deleteFullDayTimeOff/{id}")
+    public String deleteFullDayTimeOff(@PathVariable("id") Long id) {
+        timeOffService.deleteFullDayTimeOff(id);
+        return "success";
+    }
+
 }

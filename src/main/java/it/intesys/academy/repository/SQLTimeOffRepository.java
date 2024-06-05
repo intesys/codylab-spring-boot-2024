@@ -1,8 +1,6 @@
 package it.intesys.academy.repository;
 
-import it.intesys.academy.mapper.FullDayTimeOffRowMapper;
-import it.intesys.academy.mapper.PartialDayTimeOffRowMapper;
-import it.intesys.academy.mapper.TimeRangeRowMapper;
+import it.intesys.academy.mapper.*;
 import it.intesys.academy.model.FullDayTimeOffRequest;
 import it.intesys.academy.model.PartialDayTimeOffRequest;
 import it.intesys.academy.model.TimeOffRequest;
@@ -15,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -77,18 +76,28 @@ public class SQLTimeOffRepository implements TimeOffRepository {
   }
 
   public List<PartialDayTimeOffRequest> getPartialDayTimeOffByUserId(Long userId) {
-    List<PartialDayTimeOffRequest> partialDayTimeOffs = jdbcTemplate.query("SELECT * FROM PARTIAL_DAY_TIMEOFF WHERE USER_ID = :userId", Map.of("userId", userId), new PartialDayTimeOffRowMapper());
+    return jdbcTemplate.query("SELECT * FROM PARTIAL_DAY_TIMEOFF WHERE USER_ID = :userId", Map.of("userId", userId), new PartialDayTimeOffRowMapper());
 
-    for (PartialDayTimeOffRequest partialDayTimeOff : partialDayTimeOffs) {
-      Long partialDayId = partialDayTimeOff.getId();
-      List<TimeRange> timeRanges = getTimeRangesByPartialDayId(partialDayId);
-      partialDayTimeOff.setTimeRanges(timeRanges);
-    }
-
-    return partialDayTimeOffs;
   }
 
   public List<TimeRange> getTimeRangesByPartialDayId(Long partialDayId) {
-    return jdbcTemplate.query("SELECT * FROM TIME_RANGE WHERE PARTIAL_DAY_ID = :partialDayId", Map.of("partialDayId", partialDayId), new TimeRangeRowMapper());
+    List<TimeRange> timeRanges = jdbcTemplate.query("SELECT * FROM TIME_RANGE WHERE PARTIAL_DAY_ID = :partialDayId", Map.of("partialDayId", partialDayId), new TimeRangeRowMapper());
+    return timeRanges;
+  }
+
+  public List<TimeRange> getPartialDayTimeOffIdByTimeRangeId(Long id) {
+    return jdbcTemplate.query("SELECT * FROM TIME_RANGE WHERE ID = :id", Map.of("id", id), new TimeRangeRowMapper());
+  }
+
+  public void deleteTimeRange(Long id) {
+    jdbcTemplate.update("DELETE FROM TIME_RANGE WHERE id = :id", Map.of("id", id));
+  }
+
+  public void deletePartialDayTimeOff(Long id) {
+    jdbcTemplate.update("DELETE FROM PARTIAL_DAY_TIMEOFF WHERE id = :id", Map.of("id", id));
+  }
+
+  public void deleteFullDayTimeOff(Long id) {
+    jdbcTemplate.update("DELETE FROM FULL_DAY_TIMEOFF WHERE id = :id", Map.of("id", id));
   }
 }

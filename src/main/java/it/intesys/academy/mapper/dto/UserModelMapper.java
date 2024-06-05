@@ -1,4 +1,4 @@
-package it.intesys.academy.mapper;
+package it.intesys.academy.mapper.dto;
 
 import it.intesys.academy.dto.UserDTO;
 import it.intesys.academy.model.User;
