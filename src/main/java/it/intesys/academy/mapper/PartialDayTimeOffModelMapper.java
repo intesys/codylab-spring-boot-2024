@@ -1,7 +1,6 @@
-package it.intesys.academy.mapper.dto;
+package it.intesys.academy.mapper;
 
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
-import it.intesys.academy.mapper.ModelMapperFactory;
 import it.intesys.academy.model.PartialDayTimeOff;
 
 public class PartialDayTimeOffModelMapper {

@@ -1,7 +1,6 @@
-package it.intesys.academy.mapper.dto;
+package it.intesys.academy.mapper;
 
 import it.intesys.academy.dto.UserDTO;
-import it.intesys.academy.mapper.ModelMapperFactory;
 import it.intesys.academy.model.User;
 
 public class UserModelMapper {
