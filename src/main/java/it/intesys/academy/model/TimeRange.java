@@ -16,12 +16,16 @@ import java.time.LocalTime;
 @Table(name = "TIME_RANGE")
 public class TimeRange {
 
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    private @Column(name = "time_from") LocalTime from;
+    @Column(name = "TIME_FROM")
+    private LocalTime from;
 
-    private @Column(name = "time_to") LocalTime to;
+    @Column(name = "TIME_TO")
+    private LocalTime to;
 
-    private @ManyToOne @JoinColumn(name = "PARTIAL_DAY_ID") PartialDayTimeOff partialDayTimeOff;
+    @ManyToOne @JoinColumn(name = "PARTIAL_DAY_ID")
+    private PartialDayTimeOff partialDayTimeOff;
 
 }

@@ -27,6 +27,41 @@
 
 <br/><br/><br/><br/>
 
+<div class="row center-align">
+    <h3>Ferie</h3>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th width="20%">Cancella</th>
+        <th>Dal</th>
+        <th>Al</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#fullDayTimeOffs}}
+        <tr>
+            <td><a href="/mvc/user/full-day-timeoff/delete/{{id}}/user/{{user.id}}">Cancella queste ferie</a></td>
+            <td>{{from}}</td>
+            <td>{{to}}</td>
+        </tr>
+    {{/fullDayTimeOffs}}
+    </tbody>
+</table>
+
+<br>
+
+<form action="/mvc/user/{{id}}/full-day-timeoff-form" method="get">
+    <input type="submit" value="Inserisci richiesta ferie">
+</form>
+
+<br/><br/>
+
+<div class="row center-align">
+    <h3>Permessi</h3>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -50,10 +85,11 @@
     </tbody>
 </table>
 
-<br/><br/><br/><br/>
+<br>
 
-<form action="/mvc/user/partial-day-timeoff/add" method="post">
-    <input type="submit" value="Inserisci richiesta">
+<form action="/mvc/user/{{id}}/partial-day-timeoff-form" method="get">
+    <input type="submit" value="Inserisci richiesta permesso">
 </form>
+
 
 {{>footer}}

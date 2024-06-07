@@ -1,0 +1,39 @@
+{{>header}}
+
+<div class="row center-align">
+    <h3>Richiesta permesso</h3>
+</div>
+
+<form action="/mvc/user/{{userId}}/partial-day-timeoff/add" method="post">
+
+    <div>
+        <label> Giorno
+            <input type="date" name="date" value="2024-06-04">
+        </label>
+    </div>
+
+    <div>
+        <h5>Mattina</h5>
+        <label> Dalle
+            <input type="time" name="morningFrom" value="09:00">
+        </label>
+        <label> Alle
+            <input type="time" name="morningTo" value="10:00">
+        </label>
+    </div>
+
+    <div>
+        <h5>Pomeriggio</h5>
+        <label> Dalle
+            <input type="time" name="afternoonFrom" value="17:00">
+        </label>
+        <label> Alle
+            <input type="time" name="afternoonTo" value="18:00">
+        </label>
+    </div>
+
+    <input type="submit" value="Inserisci richiesta permesso">
+</form>
+
+
+{{>footer}}
