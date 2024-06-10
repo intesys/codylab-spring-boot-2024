@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class FullDayTimeOffDTO {
 
     private long id;
-    private String from;
-    private String to;
+    private String from = "";
+    private String to = "";
 
 }

@@ -18,9 +18,9 @@ public class FullDayTimeOff {
 
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
 
-    private @Column(name = "date_from") LocalDate from;
+    private @Column(name = "date_from", nullable = false) LocalDate from;
 
-    private @Column(name = "date_to") LocalDate to;
+    private @Column(name = "date_to", nullable = false) LocalDate to;
 
     private @ManyToOne @JoinColumn(name = "USER_ID") User user;
 }

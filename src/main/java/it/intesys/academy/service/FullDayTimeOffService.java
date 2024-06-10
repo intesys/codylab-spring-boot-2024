@@ -27,7 +27,7 @@ public class FullDayTimeOffService {
 
     List<FullDayTimeOff> fullDayTimeOffList = fullDayTimeOffRepository.findByUserId(userId);
 
-    return fullDayTimeOffList.stream().map(FullDayTimeOffModelMapper::fromEntityToDTO).collect(Collectors.toList());
+    return fullDayTimeOffList.stream().map(fullDayTimeOff -> FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOff, "dd/MM/yyyy")).collect(Collectors.toList());
 
   }
 
@@ -45,6 +45,10 @@ public class FullDayTimeOffService {
 
     fullDayTimeOffRepository.deleteById(idFullDayTimeOff);
 
+  }
+
+  public FullDayTimeOffDTO getFullDayTimeOffById(long id) {
+    return FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOffRepository.findById(id).get(), "yyyy-MM-dd");
   }
 
 }

@@ -47,14 +47,54 @@ public class UserControllerMvc {
 
     }
 
-    @GetMapping("/partial-day-timeoff/delete/{id}/user/{idUser}")
-    public String deletePartialTimeOff(@PathVariable("id") String idPartialTimeOff,
-                                       @PathVariable("idUser") String userId) {
+//    FullDayTimeOff
 
-        partialDayTimeOffService.deletePartialDayTimeOff(Long.parseLong(idPartialTimeOff));
+    @PostMapping("/{userId}/full-day-timeoff/{fullDayTimeOffId}")
+    public String addFullDayTimeoff(
+            @PathVariable("userId") long userId,
+            @PathVariable("fullDayTimeOffId") long fullDayTimeOffId,
+            String from,
+            String to
+    ) {
+
+        FullDayTimeOffDTO fullDayTimeOffDTO = new FullDayTimeOffDTO();
+        fullDayTimeOffDTO.setId(fullDayTimeOffId); //chiave
+        fullDayTimeOffDTO.setFrom(from);
+        fullDayTimeOffDTO.setTo(to);
+
+        fullDayTimeOffService.save(fullDayTimeOffDTO, userId);
+
+        return "redirect:/mvc/user/" + userId;
+    }
+
+    @GetMapping("/full-day-timeoff/delete/{id}/user/{idUser}")
+    public String deleteFullTimeOff(@PathVariable("id") String idFullTimeOff,
+                                    @PathVariable("idUser") String userId) {
+
+        fullDayTimeOffService.deleteFullDayTimeOff(Long.parseLong(idFullTimeOff));
 
         return "redirect:/mvc/user/" + userId;
 
+    }
+
+    @GetMapping("full-day-timeoff/edit/{id}/user/{userId}")
+    public String editFullDayTimeOff(@PathVariable("id") String id, @PathVariable("userId") String userId, Model model) {
+        if (Long.parseLong(id) == 0) {
+            model.addAttribute("fullDayTimeOff", new FullDayTimeOffDTO());
+        } else {
+            model.addAttribute("fullDayTimeOff", fullDayTimeOffService.getFullDayTimeOffById(Long.parseLong(id)));
+        }
+
+        model.addAttribute("userId", userId);
+        return "fullDayTimeOffForm";
+    }
+
+//    PartialDayTimeOff
+
+    @GetMapping("/{userId}/partial-day-timeoff-form")
+    public String partialDayTimeOffForm(@PathVariable("userId") Long userId, Model model) {
+        model.addAttribute("userId", userId);
+        return "PartialDayTimeOffForm";
     }
 
     @PostMapping("/{userId}/partial-day-timeoff/add")
@@ -84,42 +124,13 @@ public class UserControllerMvc {
         return "redirect:/mvc/user/" + userId;
     }
 
-    @GetMapping("/{userId}/partial-day-timeoff-form")
-    public String partialDayTimeOffForm(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("userId", userId);
-        return "addPartialDayTimeOff";
-    }
+    @GetMapping("/partial-day-timeoff/delete/{id}/user/{idUser}")
+    public String deletePartialTimeOff(@PathVariable("id") String idPartialTimeOff,
+                                       @PathVariable("idUser") String userId) {
 
-    @GetMapping("/full-day-timeoff/delete/{id}/user/{idUser}")
-    public String deleteFullTimeOff(@PathVariable("id") String idFullTimeOff,
-                                    @PathVariable("idUser") String userId) {
-
-        fullDayTimeOffService.deleteFullDayTimeOff(Long.parseLong(idFullTimeOff));
+        partialDayTimeOffService.deletePartialDayTimeOff(Long.parseLong(idPartialTimeOff));
 
         return "redirect:/mvc/user/" + userId;
 
     }
-
-    @PostMapping("/{userId}/full-day-timeoff/add")
-    public String addFullDayTimeoff(
-            @PathVariable("userId") long userId,
-            String from,
-            String to
-    ) {
-
-        FullDayTimeOffDTO fullDayTimeOffDTO = new FullDayTimeOffDTO();
-        fullDayTimeOffDTO.setFrom(from);
-        fullDayTimeOffDTO.setTo(to);
-
-        fullDayTimeOffService.save(fullDayTimeOffDTO, userId);
-
-        return "redirect:/mvc/user/" + userId;
-    }
-
-    @GetMapping("/{userId}/full-day-timeoff-form")
-    public String fullDayTimeOffForm(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("userId", userId);
-        return "addFullDayTimeOff";
-    }
-
 }

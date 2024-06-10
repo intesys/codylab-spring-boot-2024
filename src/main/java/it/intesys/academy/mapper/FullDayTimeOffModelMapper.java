@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter;
 
 public class FullDayTimeOffModelMapper {
 
-    public static FullDayTimeOffDTO fromEntityToDTO(FullDayTimeOff fullDayTimeOff) {
+    public static FullDayTimeOffDTO fromEntityToDTO(FullDayTimeOff fullDayTimeOff, String datePattern) {
 
         FullDayTimeOffDTO dto = ModelMapperUtils.modelMapper.map(fullDayTimeOff, FullDayTimeOffDTO.class);
 
-        dto.setFrom(fullDayTimeOff.getFrom().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) );
-        dto.setTo(fullDayTimeOff.getTo().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) );
+        dto.setFrom(fullDayTimeOff.getFrom().format(DateTimeFormatter.ofPattern(datePattern)) );
+        dto.setTo(fullDayTimeOff.getTo().format(DateTimeFormatter.ofPattern(datePattern)) );
 
         return dto;
 
