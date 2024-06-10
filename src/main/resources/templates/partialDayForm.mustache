@@ -1,0 +1,24 @@
+{{>header}}
+
+<div class="row center-align">
+    <h3>New Partial Day Time Off Request Form</h3>
+</div>
+
+<form action="/mvc/user/partial-day-timeoff/add/{{userId}}" method="post">
+    <label for="userId">Id Utente</label>
+    <input type="text" name="userId" id="userId" value="{{userId}}" disabled>
+    <label for="date">Data</label>
+    <input type="date" name="date" id="date" required>
+    <label for="mStart">Ora inizio Mattina</label>
+    <input type="time" name="mStart" id="mStart" required>
+    <label for="mEnd">Ora fine Mattina</label>
+    <input type="time" name="mEnd" id="mEnd" required>
+    <label for="pStart">Ora inizio Pomeriggio</label>
+    <input type="time" name="pStart" id="pStart" required>
+    <label for="pEnd">Ora fine Pomeriggio</label>
+    <input type="time" name="pEnd" id="pEnd" required>
+
+    <input type="submit" value="Inserisci richiesta">
+</form>
+
+{{>footer}}

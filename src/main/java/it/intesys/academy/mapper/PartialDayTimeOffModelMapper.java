@@ -22,7 +22,7 @@ public class PartialDayTimeOffModelMapper {
 
         PartialDayTimeOff entity = ModelMapperUtils.modelMapper.map(partialDayTimeOffDTO, PartialDayTimeOff.class);
 
-        entity.setDate( LocalDate.parse(partialDayTimeOffDTO.getDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy") ) );
+        entity.setDate( LocalDate.parse(partialDayTimeOffDTO.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd") ) );
 
         entity.setTimeRangeList( TimeRangeModelMapper.fromDTOstoEntities(partialDayTimeOffDTO.getTimeRangeDTOList(), entity) );
 

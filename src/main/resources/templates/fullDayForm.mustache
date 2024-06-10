@@ -1,0 +1,19 @@
+{{>header}}
+
+<div class="row center-align">
+    <h3>New Full Day Time Off Request Form</h3>
+</div>
+
+<form action="/mvc/user/full-day-timeoff/add/{{userId}}" method="post">
+    <label for="userId">Id Utente</label>
+    <input type="text" name="userId" id="userId" value="{{userId}}" disabled>
+    <label for="date">Data Inizio</label>
+    <input type="date" name="dateStart" id="dateStart" required>
+    <label for="date">Data Fine</label>
+    <input type="date" name="dateEnd" id="dateEnd" required>
+
+
+    <input type="submit" value="Inserisci richiesta">
+</form>
+
+{{>footer}}
