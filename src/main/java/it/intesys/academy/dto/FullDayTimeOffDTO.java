@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FullDayTimeOffDTO {
     private long id;
-    private String dateStart;
-    private String dateEnd;
-
+    private String from = "";
+    private String to = "";
 }

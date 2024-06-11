@@ -41,14 +41,14 @@
         <tr>
             <td><a href="/mvc/user/full-day-timeoff/delete/{{id}}/user/{{user.id}}">Cancella queste ferie</a></td>
             <td><a href="/mvc/user/full-day-timeoff/edit/{{id}}/user/{{user.id}}">Modifica queste ferie</a></td>
-            <td>{{dateStart}}</td>
-            <td>{{dateEnd}}</td>
+            <td>{{from}}</td>
+            <td>{{to}}</td>
         </tr>
     {{/fullDayTimeOffs}}
     </tbody>
 </table>
 <br/>
-<form action="/mvc/user/full-day-timeoff/get-form/{{user.id}}" method="get">
+<form action="/mvc/user/full-day-timeoff/edit/0/user/{{user.id}}" method="get">
     <input type="submit" value="Nuova richiesta Ferie">
 </form>
 <br/>

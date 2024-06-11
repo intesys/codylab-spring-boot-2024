@@ -5,18 +5,16 @@
 </div>
 
 <form action="/mvc/user/partial-day-timeoff/add/{{userId}}" method="post">
-    <label for="userId">Id Utente</label>
-    <input type="text" name="userId" id="userId" value="{{userId}}" disabled>
     <label for="date">Data</label>
     <input type="date" name="date" id="date" required>
-    <label for="mStart">Ora inizio Mattina</label>
-    <input type="time" name="mStart" id="mStart" required>
-    <label for="mEnd">Ora fine Mattina</label>
-    <input type="time" name="mEnd" id="mEnd" required>
-    <label for="pStart">Ora inizio Pomeriggio</label>
-    <input type="time" name="pStart" id="pStart" required>
-    <label for="pEnd">Ora fine Pomeriggio</label>
-    <input type="time" name="pEnd" id="pEnd" required>
+    <label for="morningFrom">Ora inizio Mattina</label>
+    <input type="time" name="morningFrom" id="morningFrom" required>
+    <label for="morningTo">Ora fine Mattina</label>
+    <input type="time" name="morningTo" id="morningTo" required>
+    <label for="afternoonFrom">Ora inizio Pomeriggio</label>
+    <input type="time" name="afternoonFrom" id="afternoonFrom" required>
+    <label for="afternoonTo">Ora fine Pomeriggio</label>
+    <input type="time" name="afternoonTo" id="afternoonTo" required>
 
     <input type="submit" value="Inserisci richiesta">
 </form>
