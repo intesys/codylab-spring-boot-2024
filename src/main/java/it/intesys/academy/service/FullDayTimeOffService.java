@@ -2,6 +2,8 @@ package it.intesys.academy.service;
 
 import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
 import it.intesys.academy.dto.FullDayTimeOffDTO;
+import it.intesys.academy.exceptions.ForbiddenException;
+import it.intesys.academy.exceptions.NotFoundException;
 import it.intesys.academy.mapper.FullDayTimeOffModelMapper;
 import it.intesys.academy.model.FullDayTimeOff;
 import it.intesys.academy.model.User;
@@ -60,10 +62,10 @@ public class FullDayTimeOffService {
         // todo validate request, prior to go to the database
 
         var existingRequest = fullDayTimeOffRepository.findById(fullDayTimeOffAPIDTO.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Invalid request id"));
+            .orElseThrow(() -> new NotFoundException("Invalid request id"));
 
         if (!Objects.equals(existingRequest.getUser().getId(), userId)) {
-            throw new IllegalArgumentException("Permission denied");
+            throw new ForbiddenException("Permission denied");
         }
 
         existingRequest.setFrom(fullDayTimeOffAPIDTO.getFrom());

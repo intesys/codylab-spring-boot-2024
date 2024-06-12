@@ -2,6 +2,7 @@ package it.intesys.academy.controller;
 
 import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
 import it.intesys.academy.dto.FullDayTimeOffDTO;
+import it.intesys.academy.exceptions.BadRequestException;
 import it.intesys.academy.model.FullDayTimeOff;
 import it.intesys.academy.service.FullDayTimeOffService;
 import it.intesys.academy.service.PartialDayTimeOffService;
@@ -55,7 +56,7 @@ public class TimeOffController {
       @RequestHeader("user") Long userId) {
 
     if (!Objects.equals(requestId, fullDayTimeOffDTO.getId())) {
-      throw new IllegalArgumentException("Path id differs from the body id");
+      throw new BadRequestException("Path id differs from the body id");
     }
 
     FullDayTimeOffAPIDTO dto = fullDayTimeOffService.update(fullDayTimeOffDTO, userId);
