@@ -1,5 +1,6 @@
 package it.intesys.academy.mapper;
 
+import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
 import it.intesys.academy.dto.FullDayTimeOffDTO;
 import it.intesys.academy.model.FullDayTimeOff;
 
@@ -29,4 +30,16 @@ public class FullDayTimeOffModelMapper {
         return entity;
 
     }
+
+    public static FullDayTimeOffAPIDTO fromEntityToAPIDTO(FullDayTimeOff fullDayTimeOff) {
+        FullDayTimeOffAPIDTO dto = ModelMapperUtils.modelMapper.map(fullDayTimeOff, FullDayTimeOffAPIDTO.class);
+        return dto;
+    }
+
+
+    public static FullDayTimeOff fromAPIDTOtoEntity(FullDayTimeOffAPIDTO fullDayTimeOffDTO) {
+        FullDayTimeOff entity = ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
+        return entity;
+    }
+
 }

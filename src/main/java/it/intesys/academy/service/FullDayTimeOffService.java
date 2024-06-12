@@ -1,10 +1,13 @@
 package it.intesys.academy.service;
 
+import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
 import it.intesys.academy.dto.FullDayTimeOffDTO;
 import it.intesys.academy.mapper.FullDayTimeOffModelMapper;
 import it.intesys.academy.model.FullDayTimeOff;
+import it.intesys.academy.model.User;
 import it.intesys.academy.repository.FullDayTimeOffRepository;
 import it.intesys.academy.repository.UserRepository;
+import java.util.Objects;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +40,38 @@ public class FullDayTimeOffService {
 
         fullDayTimeOffRepository.save(fullDayTimeOff);
 
+    }
+
+    public FullDayTimeOffAPIDTO save(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO, long userId) {
+        // todo validate request, prior to go to the database
+
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        var fullDayTimeOffRequest = FullDayTimeOffModelMapper.fromAPIDTOtoEntity(fullDayTimeOffAPIDTO);
+        fullDayTimeOffRequest.setUser(user);
+
+        fullDayTimeOffRequest = fullDayTimeOffRepository.save(fullDayTimeOffRequest);
+
+        return FullDayTimeOffModelMapper.fromEntityToAPIDTO(fullDayTimeOffRequest);
+    }
+
+    public FullDayTimeOffAPIDTO update(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO, long userId) {
+        // todo validate request, prior to go to the database
+
+        var existingRequest = fullDayTimeOffRepository.findById(fullDayTimeOffAPIDTO.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Invalid request id"));
+
+        if (!Objects.equals(existingRequest.getUser().getId(), userId)) {
+            throw new IllegalArgumentException("Permission denied");
+        }
+
+        existingRequest.setFrom(fullDayTimeOffAPIDTO.getFrom());
+        existingRequest.setTo(fullDayTimeOffAPIDTO.getTo());
+
+        existingRequest = fullDayTimeOffRepository.save(existingRequest);
+
+        return FullDayTimeOffModelMapper.fromEntityToAPIDTO(existingRequest);
     }
 
     public void deleteFullDayTimeOff(long idFullDayTimeOff) {
