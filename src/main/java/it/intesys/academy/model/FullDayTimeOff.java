@@ -6,22 +6,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TIME_RANGE")
-public class TimeRange {
+
+@Table(name = "FULL_DAY_TIMEOFF")
+
+public class FullDayTimeOff {
 
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) long id;
 
-    private @Column(name = "time_from") LocalTime from;
+    private @Column(name = "date_from") LocalDate from;
 
-    private @Column(name = "time_to") LocalTime to;
+    private @Column(name = "date_to") LocalDate to;
 
-    private @ManyToOne @JoinColumn(name = "PARTIAL_DAY_ID") PartialDayTimeOff partialDayTimeOff;
+    private @ManyToOne @JoinColumn(name = "USER_ID") User user;
 
 }
+

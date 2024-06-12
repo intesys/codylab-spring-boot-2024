@@ -1,13 +1,8 @@
 package it.intesys.academy.repository;
 
 import it.intesys.academy.model.User;
+import org.springframework.data.repository.ListCrudRepository;
 
-import java.util.List;
-
-public interface UserRepository {
-
-    public List<User> findAll();
-
-    public User findUser(long id);
+public interface UserRepository extends ListCrudRepository<User, Long> {
 
 }

@@ -1,11 +1,8 @@
 package it.intesys.academy.repository;
 
 import it.intesys.academy.model.TimeRange;
+import org.springframework.data.repository.ListCrudRepository;
 
-import java.util.List;
-
-public interface TimeRangeRepository {
-
-    List<TimeRange> findTimeRange(long partialDayTimeoff);
+public interface TimeRangeRepository extends ListCrudRepository<TimeRange, Long> {
 
 }

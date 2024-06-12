@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public UserDTO getUser(long id) {
-        return UserModelMapper.fromEntityToDTO(userRepository.findUser(id));
+        return UserModelMapper.fromEntityToDTO(userRepository.findById(id).get());
     }
 
 }
