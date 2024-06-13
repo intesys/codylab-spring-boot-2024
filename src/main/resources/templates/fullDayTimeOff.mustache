@@ -1,0 +1,27 @@
+{{>header}}
+
+<div class="row center-align">
+    <h3>Richiesta ferie</h3>
+</div>
+
+
+
+<form action="/mvc/user/{{userId}}/full-day-timeoff/{{fullDayTimeOff.id}}" method="post">
+
+    <div>
+        <h5>Periodo</h5>
+        <label> Dal
+            <input type="date" name="from" value="{{fullDayTimeOff.from}}">
+        </label>
+        <label> Al
+            <input type="date" name="to" value="{{fullDayTimeOff.to}}">
+        </label>
+    </div>
+
+    <input type="submit" value="Inserisci richiesta ferie">
+
+</form>
+
+
+
+{{>footer}}
