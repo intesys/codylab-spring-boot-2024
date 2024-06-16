@@ -1,5 +1,6 @@
 package it.intesys.academy.mapper;
 
+import it.intesys.academy.dto.PartialDayTimeOffAPIDTO;
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
 import it.intesys.academy.model.PartialDayTimeOff;
 
@@ -30,4 +31,15 @@ public class PartialDayTimeOffModelMapper {
 
     }
 
+    public static PartialDayTimeOffAPIDTO fromEntityToAPIDTO(PartialDayTimeOff partialDayTimeOff) {
+        return ModelMapperUtils.modelMapper.map(partialDayTimeOff, PartialDayTimeOffAPIDTO.class);
+    }
+
+    public static PartialDayTimeOff fromAPIDTOtoEntity(PartialDayTimeOffAPIDTO partialDayTimeOffDTO) {
+        PartialDayTimeOff entity = ModelMapperUtils.modelMapper.map(partialDayTimeOffDTO, PartialDayTimeOff.class);
+
+        entity.setTimeRangeList( TimeRangeModelMapper.fromDTOstoEntities(partialDayTimeOffDTO.getTimeRangeDTOList(), entity) );
+
+        return entity;
+    }
 }

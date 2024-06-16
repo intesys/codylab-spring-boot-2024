@@ -25,4 +25,12 @@ public class UserService {
         return UserModelMapper.fromEntityToDTO(userRepository.findById(id).get());
     }
 
+    public List<UserDTO> getAllUsers(String userId) {
+
+        userRepository.findById(Long.parseLong(userId))
+                .orElseThrow(() -> new IllegalArgumentException(("User not found")));
+
+        return userRepository.findAll().stream().map(UserModelMapper::fromEntityToDTO).collect(Collectors.toList());
+    }
+
 }

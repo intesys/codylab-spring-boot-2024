@@ -19,7 +19,6 @@ public class FullDayTimeOffModelMapper {
 
     }
 
-
     public static FullDayTimeOff fromDTOtoEntity(FullDayTimeOffDTO fullDayTimeOffDTO) {
 
         FullDayTimeOff entity = ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
@@ -32,14 +31,12 @@ public class FullDayTimeOffModelMapper {
     }
 
     public static FullDayTimeOffAPIDTO fromEntityToAPIDTO(FullDayTimeOff fullDayTimeOff) {
-        FullDayTimeOffAPIDTO dto = ModelMapperUtils.modelMapper.map(fullDayTimeOff, FullDayTimeOffAPIDTO.class);
-        return dto;
+        return ModelMapperUtils.modelMapper.map(fullDayTimeOff, FullDayTimeOffAPIDTO.class);
     }
 
 
     public static FullDayTimeOff fromAPIDTOtoEntity(FullDayTimeOffAPIDTO fullDayTimeOffDTO) {
-        FullDayTimeOff entity = ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
-        return entity;
+        return ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
     }
 
 }

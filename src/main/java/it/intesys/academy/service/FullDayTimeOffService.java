@@ -34,6 +34,15 @@ public class FullDayTimeOffService {
 
     }
 
+    public List<FullDayTimeOffDTO> getFullDayTimeOffRequests(Long userId) {
+        userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        List<FullDayTimeOff> fullDayTimeOffList = fullDayTimeOffRepository.findByUserId(userId);
+
+        return fullDayTimeOffList.stream().map(fullDayTimeOff -> FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOff, "dd/MM/yyyy")).collect(Collectors.toList());
+    }
+
     public void save(FullDayTimeOffDTO fullDayTimeOffDTO, long userId) {
 
         FullDayTimeOff fullDayTimeOff = FullDayTimeOffModelMapper.fromDTOtoEntity(fullDayTimeOffDTO);
@@ -85,4 +94,16 @@ public class FullDayTimeOffService {
     public FullDayTimeOffDTO getFullDayTimeOffById(long id) {
         return FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOffRepository.findById(id).get(), "yyyy-MM-dd");
     }
+
+    public void delete(Long requestId, Long userId) {
+        var existingRequest = fullDayTimeOffRepository.findById(requestId)
+            .orElseThrow(() -> new NotFoundException("Invalid request id"));
+
+        if (!Objects.equals(existingRequest.getUser().getId(), userId)) {
+            throw new ForbiddenException("Permission denied");
+        }
+
+        fullDayTimeOffRepository.delete(existingRequest);
+    }
+
 }

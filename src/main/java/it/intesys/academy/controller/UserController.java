@@ -1,12 +1,9 @@
 package it.intesys.academy.controller;
 
 import it.intesys.academy.dto.UserDTO;
-import it.intesys.academy.model.User;
 import it.intesys.academy.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,11 @@ public class UserController {
   public ResponseEntity<UserDTO> getUser(@PathVariable("id") Long userId) {
     UserDTO userDTO = userService.getUser(userId);
     return ResponseEntity.ok(userDTO);
+  }
+
+  @GetMapping("/users-api")
+  public List<UserDTO> getAllUsers(@RequestHeader("user") String userId) {
+    return userService.getAllUsers(userId);
   }
 
 }
