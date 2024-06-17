@@ -20,6 +20,4 @@ public class ForbiddenException extends ErrorResponseException {
     problemDetail.setProperty("timestamp", Instant.now());
     return problemDetail;
   }
-
-
 }
