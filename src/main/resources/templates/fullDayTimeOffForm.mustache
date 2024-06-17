@@ -6,15 +6,15 @@
 
 
 
-<form action="/mvc/user/{{userId}}/full-day-timeoff/{{fullDayTimeOff.id}}" method="post">
+<form action="/mvc/user/{{userId}}/full-day-timeoff/add" method="post">
 
     <div>
         <h5>Periodo</h5>
         <label> Dal
-            <input type="date" name="from" value="{{fullDayTimeOff.from}}">
+            <input type="date" name="from">
         </label>
         <label> Al
-            <input type="date" name="to" value="{{fullDayTimeOff.to}}">
+            <input type="date" name="to">
         </label>
     </div>
 

@@ -53,6 +53,35 @@ public class UserControllerMvc {
 
     }
 
+
+    //richiama il form
+    @GetMapping("/{userId}/full-day-timeoff-form")
+    public String fullDayTimeOffForm(@PathVariable("userId") Long userId,
+                                     Model model){
+
+        model.addAttribute("uderId", userId);
+
+        return "fullDayTimeOffForm";
+    }
+
+
+    //prende i dati dal form
+    @PostMapping("/{userId}/full-day-timeoff/add")
+    public String addFullDayTimeOff(@PathVariable("userId") Long userId,
+                                     String from,
+                                     String to) {
+
+        FullDayTimeOffDTO fullDayTimeOffDTO = new FullDayTimeOffDTO();
+        fullDayTimeOffDTO.setFrom(from);
+        fullDayTimeOffDTO.setTo(to);
+
+        fullDayTimeOffService.save(fullDayTimeOffDTO, userId);
+
+
+        return "redirect:/mvc/user/" + userId;
+    }
+
+    
     //elimina la feria (partendo dal suo id)
     @GetMapping("/full-day-timeoff/delete/{id}/user/{idUser}")
     public String deleteFullTimeOff(@PathVariable("id") String idFullTimeOff,
@@ -63,20 +92,6 @@ public class UserControllerMvc {
         return "redirect:/mvc/user/" + userId;
     }
 
-    //aggiunge una nuova feria
-    @PostMapping("/full-day-timeoff/add")
-    public String addFullDayTimeoff() {
-        long userId = 1l;
-
-
-        FullDayTimeOffDTO fullDayTimeOffDTO = new FullDayTimeOffDTO();
-        fullDayTimeOffDTO.setFrom("15/09/2024");
-        fullDayTimeOffDTO.setTo("19/09/2024");
-
-        fullDayTimeOffService.save(fullDayTimeOffDTO, userId);
-
-        return "redirect:/mvc/user/" + String.valueOf(userId);
-    }
 
     //elimina il permesso (partendo dal suo id)
     @GetMapping("/partial-day-timeoff/delete/{id}/user/{idUser}")

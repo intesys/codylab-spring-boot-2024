@@ -52,8 +52,8 @@
 
 <br/><br/><br/><br/>
 
-<form action="/mvc/user/full-day-timeoff/add" method="post">
-    <input type="submit" value="Inserisci richiesta ferie">
+<form action="/mvc/user/{{user.id}}/full-day-timeoff-form" method="get">
+    <input type="submit" value="Nuova richiesta ferie">
 </form>
 
 
@@ -89,7 +89,7 @@
 <br/><br/><br/><br/>
 
 <form action="/mvc/user/partial-day-timeoff/add" method="post">
-    <input type="submit" value="Inserisci richiesta permesso">
+    <input type="submit" value="Nuova richiesta permesso">
 </form>
 
 <br/><br/><br/><br/>

@@ -23,8 +23,8 @@ public class FullDayTimeOffModelMapper {
 
         FullDayTimeOff entity = ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
 
-        entity.setFrom( LocalDate.parse(fullDayTimeOffDTO.getFrom(), DateTimeFormatter.ofPattern("dd/MM/yyyy") ) );
-        entity.setTo( LocalDate.parse(fullDayTimeOffDTO.getTo(), DateTimeFormatter.ofPattern("dd/MM/yyyy") ) );
+        entity.setFrom( LocalDate.parse(fullDayTimeOffDTO.getFrom(), DateTimeFormatter.ofPattern("yyyy-MM-dd") ) );
+        entity.setTo( LocalDate.parse(fullDayTimeOffDTO.getTo(), DateTimeFormatter.ofPattern("yyyy-MM-dd") ) );
 
         return entity;
 
