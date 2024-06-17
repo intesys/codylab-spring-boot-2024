@@ -13,29 +13,29 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
+  public List<UserDTO> getAllUsers() {
+    return userRepository.findAll().stream().map(UserModelMapper::fromEntityToDTO).toList();
+  }
+
+  public List<UserDTO> getAllUsers(String text) {
+    List<User> users;
+    if (StringUtils.hasText(text)) {
+      users = userRepository.findAllByEmailContaining(text);
+
+    } else {
+      users = userRepository.findAll();
     }
+    return users.stream().map(UserModelMapper::fromEntityToDTO).toList();
+  }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(UserModelMapper::fromEntityToDTO).toList();
-    }
-
-    public List<UserDTO> getAllUsers(String text) {
-        List<User> users;
-        if (StringUtils.hasText(text)) {
-            users = userRepository.findAllByEmailContaining(text);
-
-        } else {
-            users = userRepository.findAll();
-        }
-        return users.stream().map(UserModelMapper::fromEntityToDTO).toList();
-    }
-
-    public UserDTO getUser(long id) {
-        return UserModelMapper.fromEntityToDTO(userRepository.findById(id).get());
-    }
+  public UserDTO getUser(long id) {
+    return UserModelMapper.fromEntityToDTO(userRepository.findById(id).get());
+  }
 
 }

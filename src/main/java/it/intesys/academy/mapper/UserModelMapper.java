@@ -5,10 +5,10 @@ import it.intesys.academy.model.User;
 
 public class UserModelMapper {
 
-    public static UserDTO fromEntityToDTO(User yUser) {
+  public static UserDTO fromEntityToDTO(User yUser) {
 
-        return ModelMapperUtils.modelMapper.map(yUser, UserDTO.class);
+    return ModelMapperUtils.modelMapper.map(yUser, UserDTO.class);
 
-    }
+  }
 
 }

@@ -11,10 +11,10 @@ import java.util.List;
 @AllArgsConstructor
 public class PartialDayTimeOffDTO {
 
-    private long id;
+  private long id;
 
-    private String date;
+  private String date;
 
-    private List<TimeRangeDTO> timeRangeDTOList;
+  private List<TimeRangeDTO> timeRangeDTOList;
 
 }

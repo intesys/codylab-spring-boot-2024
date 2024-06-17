@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FullDayTimeOffAPIDTO {
 
-    private Long id;
+  private Long id;
 
-    @Nonnull
-    private LocalDate from;
+  @Nonnull
+  private LocalDate from;
 
-    @Nonnull
-    private LocalDate to;
+  @Nonnull
+  private LocalDate to;
 }

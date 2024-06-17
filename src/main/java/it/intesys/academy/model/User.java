@@ -17,14 +17,14 @@ import lombok.Setter;
 @Table(name = "YUSER")
 public class User {
 
-    private @Id long id;
+  private @Id long id;
 
-    private @Column(nullable = false) String username;
+  private @Column(nullable = false) String username;
 
-    private @Column(nullable = false) String name;
+  private @Column(nullable = false) String name;
 
-    private @Column(nullable = false) String surname;
+  private @Column(nullable = false) String surname;
 
-    private @Column(nullable = false) String email;
+  private @Column(nullable = false) String email;
 
 }

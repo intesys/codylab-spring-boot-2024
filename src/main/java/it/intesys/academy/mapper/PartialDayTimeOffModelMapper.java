@@ -8,26 +8,26 @@ import java.time.format.DateTimeFormatter;
 
 public class PartialDayTimeOffModelMapper {
 
-    public static PartialDayTimeOffDTO fromEntityToDTO(PartialDayTimeOff partialDayTimeOff) {
+  public static PartialDayTimeOffDTO fromEntityToDTO(PartialDayTimeOff partialDayTimeOff) {
 
-        PartialDayTimeOffDTO dto = ModelMapperUtils.modelMapper.map(partialDayTimeOff, PartialDayTimeOffDTO.class);
+    PartialDayTimeOffDTO dto = ModelMapperUtils.modelMapper.map(partialDayTimeOff, PartialDayTimeOffDTO.class);
 
-        dto.setDate( partialDayTimeOff.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) );
+    dto.setDate( partialDayTimeOff.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) );
 
-        return dto;
+    return dto;
 
-    }
+  }
 
-    public static PartialDayTimeOff fromDTOtoEntity(PartialDayTimeOffDTO partialDayTimeOffDTO) {
+  public static PartialDayTimeOff fromDTOtoEntity(PartialDayTimeOffDTO partialDayTimeOffDTO) {
 
-        PartialDayTimeOff entity = ModelMapperUtils.modelMapper.map(partialDayTimeOffDTO, PartialDayTimeOff.class);
+    PartialDayTimeOff entity = ModelMapperUtils.modelMapper.map(partialDayTimeOffDTO, PartialDayTimeOff.class);
 
-        entity.setDate( LocalDate.parse(partialDayTimeOffDTO.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd") ) );
+    entity.setDate( LocalDate.parse(partialDayTimeOffDTO.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd") ) );
 
-        entity.setTimeRangeList( TimeRangeModelMapper.fromDTOstoEntities(partialDayTimeOffDTO.getTimeRangeDTOList(), entity) );
+    entity.setTimeRangeList( TimeRangeModelMapper.fromDTOstoEntities(partialDayTimeOffDTO.getTimeRangeDTOList(), entity) );
 
-        return entity;
+    return entity;
 
-    }
+  }
 
 }

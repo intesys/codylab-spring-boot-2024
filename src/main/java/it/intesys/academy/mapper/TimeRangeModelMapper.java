@@ -11,23 +11,23 @@ import java.util.stream.Collectors;
 
 public class TimeRangeModelMapper {
 
-    private static TimeRange fromDTOtoEntity(TimeRangeDTO timeRangeDTO) {
+  private static TimeRange fromDTOtoEntity(TimeRangeDTO timeRangeDTO) {
 
-        TimeRange timeRange = ModelMapperUtils.modelMapper.map(timeRangeDTO, TimeRange.class);
+    TimeRange timeRange = ModelMapperUtils.modelMapper.map(timeRangeDTO, TimeRange.class);
 
-        timeRange.setFrom(LocalTime.parse(timeRangeDTO.getFrom(), DateTimeFormatter.ofPattern("HH:mm")));
-        timeRange.setTo(LocalTime.parse(timeRangeDTO.getTo(), DateTimeFormatter.ofPattern("HH:mm")));
+    timeRange.setFrom(LocalTime.parse(timeRangeDTO.getFrom(), DateTimeFormatter.ofPattern("HH:mm")));
+    timeRange.setTo(LocalTime.parse(timeRangeDTO.getTo(), DateTimeFormatter.ofPattern("HH:mm")));
 
-        return timeRange;
-    }
+    return timeRange;
+  }
 
-    public static List<TimeRange> fromDTOstoEntities(List<TimeRangeDTO> timeRangeDTOs, PartialDayTimeOff partialDayTimeOff) {
+  public static List<TimeRange> fromDTOstoEntities(List<TimeRangeDTO> timeRangeDTOs, PartialDayTimeOff partialDayTimeOff) {
 
-        List<TimeRange> timeRanges = timeRangeDTOs.stream().map(TimeRangeModelMapper::fromDTOtoEntity).collect(Collectors.toList());
-        timeRanges.forEach(timeRange -> timeRange.setPartialDayTimeOff(partialDayTimeOff));
+    List<TimeRange> timeRanges = timeRangeDTOs.stream().map(TimeRangeModelMapper::fromDTOtoEntity).collect(Collectors.toList());
+    timeRanges.forEach(timeRange -> timeRange.setPartialDayTimeOff(partialDayTimeOff));
 
-        return timeRanges;
+    return timeRanges;
 
-    }
+  }
 
 }

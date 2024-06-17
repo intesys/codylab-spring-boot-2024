@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TimeRangeDTO {
 
-    private long id;
+  private long id;
 
-    private String from;
+  private String from;
 
-    private String to;
+  private String to;
 
 }

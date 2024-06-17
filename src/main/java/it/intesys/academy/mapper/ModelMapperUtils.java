@@ -5,12 +5,12 @@ import org.modelmapper.convention.MatchingStrategies;
 
 public class ModelMapperUtils {
 
-    public static final ModelMapper modelMapper = new ModelMapper();
+  public static final ModelMapper modelMapper = new ModelMapper();
 
-    static {
+  static {
 
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 
-    }
+  }
 
 }
