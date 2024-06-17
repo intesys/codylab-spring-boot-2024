@@ -1,5 +1,6 @@
 package it.intesys.academy.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
 import it.intesys.academy.dto.FullDayTimeOffDTO;
 import it.intesys.academy.exceptions.BadRequestException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Time OFF", description = "API For Time Off Requests")
 @RestController
 public class TimeOffController {
 
