@@ -60,14 +60,17 @@ class FullDayTimeOffServiceTest {
   void whenUserExistsThenSaveData() {
     Long idUser = -1L;
     // Arrange
+    LocalDate from = LocalDate.of(2024, 6, 21);
+    LocalDate to = LocalDate.of(2024, 6, 22);
     FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO =
         new FullDayTimeOffAPIDTO(0,
-            LocalDate.of(2024, 6, 21),
-            LocalDate.of(2024, 6, 21));
+            from,
+            to);
+    User user = new User(idUser, "username", "name", "surname", "mail");
     when(userRepository.findById(idUser))
-        .thenReturn(Optional.of(new User(idUser, "username", "name", "surname", "mail")));
+        .thenReturn(Optional.of(user));
     when(fullDayTimeOffRepository.save(any()))
-        .thenReturn(new FullDayTimeOff(1L, LocalDate.of(2024, 6, 21), LocalDate.of(2024, 6, 21), new User(idUser, "username", "name", "surname", "mail")));
+        .thenReturn(new FullDayTimeOff(1L, from, to, user));
 
     //ACT
     fullDayTimeOffService.save(fullDayTimeOffAPIDTO, idUser);
