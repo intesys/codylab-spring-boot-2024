@@ -1,10 +1,12 @@
 package it.intesys.academy.validator;
 
 import it.intesys.academy.dto.FullDayTimeOffAPIDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Component
 public class FullDayTimeOffAPIDTOValidator {
 
   public void validate(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO) {
