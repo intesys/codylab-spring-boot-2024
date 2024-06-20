@@ -2,6 +2,7 @@ package it.intesys.academy.mapper;
 
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
 import it.intesys.academy.model.PartialDayTimeOff;
+import it.intesys.academy.dto.PartialDayTimeOffAPIDTO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +29,19 @@ public class PartialDayTimeOffModelMapper {
 
         return entity;
 
+    }
+
+
+
+    public static PartialDayTimeOffAPIDTO fromEntityToAPIDTO(PartialDayTimeOff partialDayTimeOff) {
+        PartialDayTimeOffAPIDTO dto = ModelMapperUtils.modelMapper.map(partialDayTimeOff, PartialDayTimeOffAPIDTO.class);
+        return dto;
+    }
+
+
+    public static PartialDayTimeOff fromAPIDTOtoEntity(PartialDayTimeOffAPIDTO partialDayTimeOffDTO) {
+        PartialDayTimeOff entity = ModelMapperUtils.modelMapper.map(partialDayTimeOffDTO, PartialDayTimeOff.class);
+        return entity;
     }
 
 }

@@ -26,13 +26,23 @@ public class FullDayTimeOffService {
         this.userRepository = userRepository;
     }
 
-    public List<FullDayTimeOffDTO> getFullDayTimeoff(long userId) {
 
+    //ritorna la lista di ferie di un determinato utente
+    public List<FullDayTimeOffDTO> getFullDayTimeoff(long userId) {
         List<FullDayTimeOff> fullDayTimeOffList = fullDayTimeOffRepository.findByUserId(userId);
 
         return fullDayTimeOffList.stream().map(fullDayTimeOff -> FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOff, "dd/MM/yyyy")).collect(Collectors.toList());
-
     }
+
+
+    //ritorna una feria di un determinato utente
+    public FullDayTimeOffAPIDTO getFullDayTimeOffRequest (Long requestId, Long userID) {
+        FullDayTimeOff fullDayTimeOffRequest = fullDayTimeOffRepository.findById(requestId)
+                .orElseThrow(() -> new NotFoundException("Bad Request Id"));
+
+        return FullDayTimeOffModelMapper.fromEntityToAPIDTO(fullDayTimeOffRequest);
+    }
+
 
     public void save(FullDayTimeOffDTO fullDayTimeOffDTO, long userId) {
 
@@ -44,6 +54,7 @@ public class FullDayTimeOffService {
 
     }
 
+    //inserisco una feria, la inserisce nel db e me la rimanda al fe
     public FullDayTimeOffAPIDTO save(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO, long userId) {
         // todo validate request, prior to go to the database
 
@@ -58,6 +69,8 @@ public class FullDayTimeOffService {
         return FullDayTimeOffModelMapper.fromEntityToAPIDTO(fullDayTimeOffRequest);
     }
 
+
+    //modifica una feria
     public FullDayTimeOffAPIDTO update(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO, long userId) {
         // todo validate request, prior to go to the database
 

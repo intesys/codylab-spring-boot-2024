@@ -6,17 +6,15 @@ import it.intesys.academy.exceptions.BadRequestException;
 import it.intesys.academy.model.FullDayTimeOff;
 import it.intesys.academy.service.FullDayTimeOffService;
 import it.intesys.academy.service.PartialDayTimeOffService;
+import it.intesys.academy.dto.PartialDayTimeOffAPIDTO;
 import java.net.URI;
 import java.util.Objects;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+
+//costruttore
 @RestController
 public class TimeOffController {
 
@@ -29,15 +27,14 @@ public class TimeOffController {
     this.fullDayTimeOffService = fullDayTimeOffService;
   }
 
-  /*
-  @GetMapping("/balance")
-  public TimeOffBalance getTimeOffRequests(@RequestParam("userId") Long userId) {
-    if (userId == null) {
-      throw new IllegalArgumentException("Missing user id");
-    }
-    return timeOffService.getTimeOffBalance(userId);
+  //FULL DAY TIME OFF
+
+  @GetMapping("/full-day-time-off-requests/{requestId}")
+  public ResponseEntity<FullDayTimeOffAPIDTO> getFullDayTimeOffRequest(@PathVariable Long requestId,
+                                                                       @RequestHeader Long userId) {
+    return ResponseEntity.ok(fullDayTimeOffService.getFullDayTimeOffRequest(requestId, userId));
   }
-   */
+
 
   @PostMapping("/full-day-time-off-requests")
   public ResponseEntity<FullDayTimeOffAPIDTO> createNewFullDayTimeOffRequest(
@@ -63,6 +60,14 @@ public class TimeOffController {
     return ResponseEntity.ok(dto);
   }
 
+  // @DeleteMapping
 
 
+  //PARTIAL DAY TIME OFF
+
+  @GetMapping ("/partial-day-time-off-requests/{requestId}")
+  public ResponseEntity<PartialDayTimeOffAPIDTO> getPartialDayTimeOffRequest(@PathVariable Long requestId,
+                                                                       @RequestHeader Long userId) {
+    return ResponseEntity.ok(partialDayTimeOffService.getPartialDayTimeOffRequest(requestId, userId));
+  }
 }

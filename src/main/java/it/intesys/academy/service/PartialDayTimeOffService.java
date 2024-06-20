@@ -1,6 +1,8 @@
 package it.intesys.academy.service;
 
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
+import it.intesys.academy.dto.PartialDayTimeOffAPIDTO;
+import it.intesys.academy.exceptions.NotFoundException;
 import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
 import it.intesys.academy.model.PartialDayTimeOff;
 import it.intesys.academy.repository.PartialDayTimeOffRepository;
@@ -20,16 +22,26 @@ public class PartialDayTimeOffService {
   public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository,
                                   UserRepository userRepository) {
     this.partialDayTimeOffRepository = partialDayTimeOffRepository;
-      this.userRepository = userRepository;
+    this.userRepository = userRepository;
   }
 
-  public List<PartialDayTimeOffDTO> getPartialDayTimeoff(long userId) {
 
+  //ritorna la lista di permessi di un determinato utente
+  public List<PartialDayTimeOffDTO> getPartialDayTimeoff(long userId) {
     List<PartialDayTimeOff> partialDayTimeOffList = partialDayTimeOffRepository.findByUserId(userId);
 
     return partialDayTimeOffList.stream().map(PartialDayTimeOffModelMapper::fromEntityToDTO).collect(Collectors.toList());
-
   }
+
+
+  //ritorna un permesso di un determinato utente
+  public PartialDayTimeOffAPIDTO getPartialDayTimeOffRequest (Long requestId, Long userID) {
+    PartialDayTimeOff partialDayTimeOffRequest = partialDayTimeOffRepository.findById(requestId)
+            .orElseThrow(() -> new NotFoundException("Bad Request Id"));
+
+    return PartialDayTimeOffModelMapper.fromEntityToAPIDTO(partialDayTimeOffRequest);
+  }
+
 
   public void save(PartialDayTimeOffDTO partialDayTimeOffDTO, long userId) {
 

@@ -19,7 +19,6 @@ public class FullDayTimeOffModelMapper {
 
     }
 
-
     public static FullDayTimeOff fromDTOtoEntity(FullDayTimeOffDTO fullDayTimeOffDTO) {
 
         FullDayTimeOff entity = ModelMapperUtils.modelMapper.map(fullDayTimeOffDTO, FullDayTimeOff.class);
