@@ -1,6 +1,7 @@
 package it.intesys.academy.repository;
 
 import it.intesys.academy.model.User;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,7 @@ class UserRepositoryITest {
   private UserRepository userRepository;
 
   @Test
+  @DisplayName("Testing insert e select user data lifecycle")
   void insertAndSelectUSerTest() {
     User user = new User(-1L, "username", "name", "surname", "mail");
 

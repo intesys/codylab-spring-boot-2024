@@ -45,7 +45,7 @@ class UserControllerITest {
   }
 
   @Test
-  @DisplayName("Given a user in DB When get user data THEN response has data")
+  @DisplayName("Given a user that not exists When get user data THEN response is an error response case ")
   @Sql(scripts = {"/sql/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
   @Transactional
   void whenUserNotExistsThrowsError() {
