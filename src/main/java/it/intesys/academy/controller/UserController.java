@@ -2,7 +2,6 @@ package it.intesys.academy.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import it.intesys.academy.dto.UserDTO;
-import it.intesys.academy.model.User;
 import it.intesys.academy.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
