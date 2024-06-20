@@ -4,6 +4,7 @@ import it.intesys.academy.dto.UserDTO;
 import it.intesys.academy.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,15 @@ public class UserController {
           @RequestParam(required = false) String text
   ) {
 
+
     return ResponseEntity.ok(userService.getAllUsers(text));
+  }
+
+  @GetMapping("/users/{userId}")
+  public ResponseEntity<UserDTO> getUserById(
+          @PathVariable Long userId
+  ) {
+    return ResponseEntity.ok(userService.getUser(userId));
   }
 
 }
