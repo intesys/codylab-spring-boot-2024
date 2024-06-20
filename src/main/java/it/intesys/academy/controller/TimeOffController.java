@@ -42,6 +42,12 @@ public class TimeOffController {
     return ResponseEntity.ok(fullDayTimeOffService.getFullDayTimeOffRequests(userId));
   }
 
+  @GetMapping("/full-day-time-off-request/{requestId}")
+  public ResponseEntity<FullDayTimeOffDTO> getFullDayTimeOffRequest(@PathVariable Long requestId,
+                                                                          @RequestHeader("user") Long userId) {
+    return ResponseEntity.ok(fullDayTimeOffService.getFullDayTimeOffRequest(requestId, userId));
+  }
+
   @PostMapping("/full-day-time-off-requests")
   public ResponseEntity<FullDayTimeOffAPIDTO> createNewFullDayTimeOffRequest(
       @RequestBody @Validated FullDayTimeOffAPIDTO fullDayTimeOffDTO,
@@ -82,6 +88,13 @@ public class TimeOffController {
   public ResponseEntity<List<PartialDayTimeOffAPIDTO>> getPartialDayTimeOffRequests(@RequestHeader("user") Long userId) {
 
     return ResponseEntity.ok(partialDayTimeOffService.getPartialDayTimeOffRequests(userId));
+  }
+
+  @GetMapping("/partial-day-time-off-request/{requestId}")
+  public ResponseEntity<PartialDayTimeOffAPIDTO> getPartialDayTimeOffRequest(@PathVariable Long requestId,
+                                                                             @RequestHeader("user") Long userId) {
+
+    return ResponseEntity.ok(partialDayTimeOffService.getPartialDayTimeOffRequest(requestId, userId));
   }
 
   @PostMapping("/partial-day-time-off-requests")

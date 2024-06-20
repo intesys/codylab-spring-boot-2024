@@ -43,6 +43,17 @@ public class FullDayTimeOffService {
         return fullDayTimeOffList.stream().map(fullDayTimeOff -> FullDayTimeOffModelMapper.fromEntityToDTO(fullDayTimeOff, "dd/MM/yyyy")).collect(Collectors.toList());
     }
 
+    public FullDayTimeOffDTO getFullDayTimeOffRequest(Long requestId, Long userId) {
+        var existingRequest = fullDayTimeOffRepository.findById(requestId)
+                .orElseThrow(() -> new NotFoundException("Invalid request id"));
+
+        if (!Objects.equals(existingRequest.getUser().getId(), userId)) {
+            throw new ForbiddenException("Permission denied");
+        }
+
+        return FullDayTimeOffModelMapper.fromEntityToDTO(existingRequest, "yyyy-MM-dd");
+    }
+
     public void save(FullDayTimeOffDTO fullDayTimeOffDTO, long userId) {
 
         FullDayTimeOff fullDayTimeOff = FullDayTimeOffModelMapper.fromDTOtoEntity(fullDayTimeOffDTO);
@@ -105,5 +116,4 @@ public class FullDayTimeOffService {
 
         fullDayTimeOffRepository.delete(existingRequest);
     }
-
 }

@@ -3,6 +3,8 @@ package it.intesys.academy.service;
 import it.intesys.academy.dto.PartialDayTimeOffAPIDTO;
 import it.intesys.academy.dto.PartialDayTimeOffDTO;
 import it.intesys.academy.exceptions.ForbiddenException;
+import it.intesys.academy.exceptions.NotFoundException;
+import it.intesys.academy.mapper.FullDayTimeOffModelMapper;
 import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
 import it.intesys.academy.mapper.TimeRangeModelMapper;
 import it.intesys.academy.model.PartialDayTimeOff;
@@ -34,6 +36,17 @@ public class PartialDayTimeOffService {
 
     return partialDayTimeOffList.stream().map(PartialDayTimeOffModelMapper::fromEntityToDTO).collect(Collectors.toList());
 
+  }
+
+  public PartialDayTimeOffAPIDTO getPartialDayTimeOffRequest(Long requestId, Long userId) {
+    var existingRequest = partialDayTimeOffRepository.findById(requestId)
+            .orElseThrow(() -> new NotFoundException("Invalid request id"));
+
+    if (!Objects.equals(existingRequest.getUser().getId(), userId)) {
+      throw new ForbiddenException("Permission denied");
+    }
+
+    return PartialDayTimeOffModelMapper.fromEntityToAPIDTO(existingRequest);
   }
 
   public void save(PartialDayTimeOffDTO partialDayTimeOffDTO, long userId) {
