@@ -10,6 +10,8 @@ import it.intesys.academy.model.User;
 import it.intesys.academy.repository.FullDayTimeOffRepository;
 import it.intesys.academy.repository.UserRepository;
 import java.util.Objects;
+
+import it.intesys.academy.validator.FullDayTimeOffAPIDTOValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +23,12 @@ public class FullDayTimeOffService {
 
     private final UserRepository userRepository;
 
-    public FullDayTimeOffService(FullDayTimeOffRepository fullDayTimeOffRepository, UserRepository userRepository) {
+    private final FullDayTimeOffAPIDTOValidator fullDayTimeOffAPIDTOValidator;
+
+    public FullDayTimeOffService(FullDayTimeOffRepository fullDayTimeOffRepository, UserRepository userRepository, FullDayTimeOffAPIDTOValidator fullDayTimeOffAPIDTOValidator1) {
         this.fullDayTimeOffRepository = fullDayTimeOffRepository;
         this.userRepository = userRepository;
+        this.fullDayTimeOffAPIDTOValidator = fullDayTimeOffAPIDTOValidator1;
     }
 
     public List<FullDayTimeOffDTO> getFullDayTimeoff(long userId) {
@@ -45,7 +50,7 @@ public class FullDayTimeOffService {
     }
 
     public FullDayTimeOffAPIDTO save(FullDayTimeOffAPIDTO fullDayTimeOffAPIDTO, long userId) {
-        // todo validate request, prior to go to the database
+        fullDayTimeOffAPIDTOValidator.validate(fullDayTimeOffAPIDTO);
 
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
