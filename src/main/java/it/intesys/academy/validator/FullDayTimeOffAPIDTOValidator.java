@@ -14,11 +14,11 @@ public class FullDayTimeOffAPIDTOValidator {
       throw new IllegalArgumentException("fullDayTimeOffAPIDTO cannot be null");
     }
     LocalDate startDate = Optional.ofNullable(fullDayTimeOffAPIDTO.getFrom())
-            .orElseThrow(() -> new IllegalArgumentException("from date cannot be null"));
+            .orElseThrow(() -> new IllegalArgumentException("From date cannot be null"));
     LocalDate endDate = Optional.ofNullable(fullDayTimeOffAPIDTO.getTo())
-            .orElseThrow(() -> new IllegalArgumentException("end date cannot be null"));
+            .orElseThrow(() -> new IllegalArgumentException("End date cannot be null"));
     if (startDate.isAfter(endDate)) {
-      throw new IllegalArgumentException("from date cannot be cannot be null");
+      throw new IllegalArgumentException("From date cannot be cannot be null");
     }
   }
 }
