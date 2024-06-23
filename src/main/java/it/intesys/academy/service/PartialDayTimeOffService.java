@@ -5,6 +5,7 @@ import it.intesys.academy.mapper.PartialDayTimeOffModelMapper;
 import it.intesys.academy.model.PartialDayTimeOff;
 import it.intesys.academy.repository.PartialDayTimeOffRepository;
 import it.intesys.academy.repository.UserRepository;
+import it.intesys.academy.validator.PartialDayTimeOffAPIDTOValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,13 @@ public class PartialDayTimeOffService {
   private final PartialDayTimeOffRepository partialDayTimeOffRepository;
 
   private final UserRepository userRepository;
+  private final PartialDayTimeOffAPIDTOValidator partialDayTimeOffAPIDTOValidator;
 
   public PartialDayTimeOffService(PartialDayTimeOffRepository partialDayTimeOffRepository,
-                                  UserRepository userRepository) {
+                                  UserRepository userRepository, PartialDayTimeOffAPIDTOValidator partialDayTimeOffAPIDTOValidator) {
     this.partialDayTimeOffRepository = partialDayTimeOffRepository;
-      this.userRepository = userRepository;
+    this.userRepository = userRepository;
+    this.partialDayTimeOffAPIDTOValidator = partialDayTimeOffAPIDTOValidator;
   }
 
   public List<PartialDayTimeOffDTO> getPartialDayTimeoff(long userId) {
@@ -32,6 +35,8 @@ public class PartialDayTimeOffService {
   }
 
   public void save(PartialDayTimeOffDTO partialDayTimeOffDTO, long userId) {
+
+    partialDayTimeOffAPIDTOValidator.validate(partialDayTimeOffDTO);
 
     PartialDayTimeOff partialDayTimeOff = PartialDayTimeOffModelMapper.fromDTOtoEntity(partialDayTimeOffDTO);
 
