@@ -32,6 +32,7 @@ class UserControllerITest {
   void whenUserExistsReturnDetail() {
     try {
       mockMvc.perform(get("/users/1"))
+          .andDo(print())
           .andExpect(status().isOk())
           .andExpect(jsonPath("$.id", equalTo(1)))
           .andExpect(jsonPath("$.username", equalTo("eoliosi")))
