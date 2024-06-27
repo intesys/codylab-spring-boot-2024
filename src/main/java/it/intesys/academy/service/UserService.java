@@ -3,6 +3,7 @@ package it.intesys.academy.service;
 import it.intesys.academy.dto.UserDTO;
 import it.intesys.academy.mapper.UserModelMapper;
 import it.intesys.academy.repository.UserRepository;
+import it.intesys.intesys.academy.dto.UserApiDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,12 @@ public class UserService {
 
     public UserDTO getUser(long id) {
         return UserModelMapper.fromEntityToDTO(userRepository.findById(id).get());
+    }
+
+    public List<UserApiDTO> getAllUsersApiDTO() {
+        return userRepository.findAll().stream()
+            .map(UserModelMapper::fromEntityToApiDTO)
+            .collect(Collectors.toList());
     }
 
 }

@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  title: "API"
+  version: "1.0.0"
+  contact:
+    name: Contact Name
+    email: contact@example.com
+    url: https://example.com/
+tags:
+  - name: Metadata
+    description: Metadata related requests
+paths:
+  /richieste:
+    get:
+      operationId: getMetadata
+      summary: Get metadata from the root of the API
+      tags: ["Metadata"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  richieste:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        tipologia:
+                          type: string
+                        periodo:
+                          type: array
+                          items:
+                            type: string
+                            format: "dd/mm/yyyy"
+                            example: "03/01/2024"
+                        orario:
+                          type: array
+                          items:
+                            type: array
+                            items:
+                              type: string
+                              format: "hh:mm"
+                              example: "10:00"
+                        created:
+                          type: string
+                          example: "02/01/2024"
+                        esito:
+                          type: string
+                          enum:
+                            - ACCEPTED
+                            - REFUSED
+                            - PENDING
+                          description: Stato del pèrmesso
+        "400":
+          description: ERROR
+        "500":
+          description: Server error
+  /sovrapposizioni/{from}/{to}:
+    get:
+      parameters:
+        - name: from
+          in: path
+          schema:
+            type: string
+        - name: to
+          in: path
+          schema:
+            type: string
+      operationId: getSovrapposizioni
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sovrapposizioni:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Nome del collega
+                          example: Mario Rossi
+                        from:
+                          type: string
+                          description: date
+                          example: 10 maggio 2024
+                        to:
+                          type: string
+                          description: date
+                          example: 15 luglio 2024
