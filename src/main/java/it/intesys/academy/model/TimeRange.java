@@ -22,6 +22,6 @@ public class TimeRange {
 
     private @Column(name = "time_to") LocalTime to;
 
-    private @ManyToOne @JoinColumn(name = "PARTIAL_DAY_ID") PartialDayTimeOff partialDayTimeOff;
+    private @ManyToOne @JoinColumn(name = "PARTIAL_DAY_ID") TimeOff timeOff;
 
 }
