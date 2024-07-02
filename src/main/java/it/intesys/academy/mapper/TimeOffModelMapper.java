@@ -12,7 +12,7 @@ public class TimeOffModelMapper {
     public static TimeOffRequestApiDTO fromEntityToAPIDTO(TimeOff timeOff) {
         TimeOffRequestApiDTO dto = ModelMapperUtils.modelMapper.map(timeOff, TimeOffRequestApiDTO.class);
 
-        dto.setUtente(timeOff.getUser().getName());
+        dto.setUtente(timeOff.getUser().getName() + " " + timeOff.getUser().getSurname());
         dto.setTipologia(timeOff.getType().name());
         dto.setPeriodo(new ArrayList<>(List.of(timeOff.getFrom(), timeOff.getTo())));
         if (!timeOff.getTimeRangeList().isEmpty()) {
