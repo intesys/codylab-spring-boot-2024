@@ -11,7 +11,7 @@ public class TimeOffApiImpl implements TimeOffApi {
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> getTimeOffRequest(String requestId, String user) {
         return ResponseEntity.ok(
-                new TimeOffRequestApiDTO().esito(TimeOffRequestApiDTO.EsitoEnum.ACCEPTED)
+                new TimeOffRequestApiDTO().esito(TimeOffRequestApiDTO.EsitoEnum.PENDING)
         );
     }
 
