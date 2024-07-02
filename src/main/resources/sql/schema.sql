@@ -10,6 +10,7 @@ create table TIMEOFF(
     id identity primary key,
     type enum ('FULL_DAY', 'PARTIAL_DAY') not null,
     result enum ('APPROVED', 'REJECTED', 'PENDING') not null DEFAULT 'PENDING',
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     date_from date not null,
     date_to date not null,
     user_id bigint not null,
