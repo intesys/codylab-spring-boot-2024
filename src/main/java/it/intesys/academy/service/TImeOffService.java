@@ -55,4 +55,25 @@ public class TImeOffService {
 
         return TimeOffModelMapper.fromEntityToAPIDTO(timeOffRequest);
     }
+
+    public void deleteTimeOffRequest(String requestId, String user) {
+        userRepository.findById(Long.parseLong(user))
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        timeOffRepository.deleteById(Long.parseLong(requestId));
+    }
+
+    public TimeOffRequestApiDTO updateTimeOffRequest(TimeOffRequestApiDTO timeOffRequestApiDTO, String user) {
+        userRepository.findById(Long.parseLong(user))
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        timeOffAPIDTOValidator.validate(timeOffRequestApiDTO);
+
+        var timeOffRequest = TimeOffModelMapper.fromAPIDTOtoEntity(timeOffRequestApiDTO);
+        timeOffRequest.setUser(userRepository.findById(Long.parseLong(user)).orElseThrow());
+
+        timeOffRequest = timeOffRepository.save(timeOffRequest);
+
+        return TimeOffModelMapper.fromEntityToAPIDTO(timeOffRequest);
+    }
 }

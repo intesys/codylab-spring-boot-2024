@@ -27,7 +27,6 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> getTimeOffRequest(String requestId, String user) {
-
         return ResponseEntity.ok(
                 timeOffService.getTimeOffRequest(requestId, user)
         );
@@ -35,21 +34,20 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> createTimeOffRequest(String user, TimeOffRequestApiDTO timeOffRequestApiDTO) {
-
         TimeOffRequestApiDTO dto = timeOffService.createTimeOffRequest(user, timeOffRequestApiDTO);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @Override
     public ResponseEntity<Void> deleteTimeOffRequest(String requestId, String user) {
-        return TimeOffApi.super.deleteTimeOffRequest(requestId, user);
+        timeOffService.deleteTimeOffRequest(requestId, user);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> updateTimeOffRequest(String requestId, String user, TimeOffRequestApiDTO timeOffRequestApiDTO) {
-        return TimeOffApi.super.updateTimeOffRequest(requestId, user, timeOffRequestApiDTO);
+        TimeOffRequestApiDTO dto = timeOffService.updateTimeOffRequest(timeOffRequestApiDTO, user);
+        return ResponseEntity.ok(dto);
     }
-
 
 }
