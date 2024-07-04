@@ -176,6 +176,8 @@ components:
     schemas:
         TimeOffRequest:
           type: object
+          required:
+            - tipologia
           properties:
             utente:
               type: string
