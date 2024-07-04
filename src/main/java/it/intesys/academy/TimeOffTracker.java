@@ -11,11 +11,6 @@ public class TimeOffTracker {
 
     public static void main(String[] args) {
 
-        var timeoff = new TimeOffRequestApiDTO()
-            .setTipologia("tipo")
-            .esito(EsitoEnum.ACCEPTED)
-            .orario(List.of());
-
         SpringApplication.run(TimeOffTracker.class, args);
     }
 

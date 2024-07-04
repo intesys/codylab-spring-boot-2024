@@ -23,12 +23,6 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: user
-          in: header
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
         '200':
           description: OK
@@ -43,12 +37,6 @@ paths:
       parameters:
         - name: requestId
           in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: user
-          in: header
           required: true
           schema:
             type: integer
@@ -73,12 +61,6 @@ paths:
       parameters:
         - name: requestId
           in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: user
-          in: header
           required: true
           schema:
             type: integer
@@ -122,13 +104,6 @@ paths:
       tags:
         - Time Off
       operationId: createNewTimeOffRequest
-      parameters:
-        - name: user
-          in: header
-          required: true
-          schema:
-            type: integer
-            format: int64
       requestBody:
         content:
           application/json:
