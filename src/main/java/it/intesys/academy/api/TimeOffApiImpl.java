@@ -2,6 +2,7 @@ package it.intesys.academy.api;
 
 import it.intesys.academy.repository.UserRepository;
 import it.intesys.academy.service.TImeOffService;
+import it.intesys.academy.utils.SecurityUtils;
 import it.intesys.intesys.academy.api.TimeOffApi;
 import it.intesys.intesys.academy.dto.TimeOffRequestApiDTO;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,7 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<List<TimeOffRequestApiDTO>> getTimeOffRequests() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-        String username = principal.getUsername();
+        String username = SecurityUtils.getUsername();
         var user = userRepository.findByUsername(username)
                 .orElseThrow();
 
@@ -39,11 +38,9 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> getTimeOffRequest(String requestId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-        String username = principal.getUsername();
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
+      String username = SecurityUtils.getUsername();
+      var user = userRepository.findByUsername(username)
+                 .orElseThrow();
 
         return ResponseEntity.ok(
                 timeOffService.getTimeOffRequest(requestId, user.getId())
@@ -52,11 +49,9 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> createTimeOffRequest(TimeOffRequestApiDTO timeOffRequestApiDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-        String username = principal.getUsername();
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
+      String username = SecurityUtils.getUsername();
+      var user = userRepository.findByUsername(username)
+                 .orElseThrow();
 
         TimeOffRequestApiDTO dto = timeOffService.createTimeOffRequest(user.getId(), timeOffRequestApiDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
@@ -64,11 +59,9 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<Void> deleteTimeOffRequest(String requestId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-        String username = principal.getUsername();
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
+      String username = SecurityUtils.getUsername();
+      var user = userRepository.findByUsername(username)
+                 .orElseThrow();
 
         timeOffService.deleteTimeOffRequest(requestId, user.getId());
         return ResponseEntity.noContent().build();
@@ -76,11 +69,9 @@ public class TimeOffApiImpl implements TimeOffApi {
 
     @Override
     public ResponseEntity<TimeOffRequestApiDTO> updateTimeOffRequest(String requestId, TimeOffRequestApiDTO timeOffRequestApiDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User principal = (User) authentication.getPrincipal();
-        String username = principal.getUsername();
-        var user = userRepository.findByUsername(username)
-                .orElseThrow();
+      String username = SecurityUtils.getUsername();
+      var user = userRepository.findByUsername(username)
+                 .orElseThrow();
 
         TimeOffRequestApiDTO dto = timeOffService.updateTimeOffRequest(timeOffRequestApiDTO, user.getId());
         return ResponseEntity.ok(dto);
