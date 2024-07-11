@@ -2,6 +2,7 @@ package it.intesys.academy.validator;
 
 import it.intesys.intesys.academy.dto.TimeOffRequestApiDTO;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,8 +16,8 @@ public class TimeOffAPIDTOValidator {
             throw new IllegalArgumentException("timeOffRequestApiDTO cannot be null");
         }
 
-        if (timeOffRequestApiDTO.getUtente() == null || timeOffRequestApiDTO.getUtente().isEmpty()) {
-            throw new IllegalArgumentException("Utente is required");
+        if (StringUtils.hasText(timeOffRequestApiDTO.getUtente())) {
+            throw new IllegalArgumentException("Utente cannot be set");
         }
 
         LocalDate startDate = Optional.ofNullable(timeOffRequestApiDTO.getPeriodo().get(0))
@@ -29,9 +30,9 @@ public class TimeOffAPIDTOValidator {
             throw new IllegalArgumentException("from date cannot be after end date");
         }
 
-        if (timeOffRequestApiDTO.getTipologia().equals("FULL_DAY")) {
+        if ("FULL_DAY".equals(timeOffRequestApiDTO.getTipologia())) {
             validateFullDay(timeOffRequestApiDTO);
-        } else if (timeOffRequestApiDTO.getTipologia().equals("PARTIAL_DAY")) {
+        } else if ("PARTIAL_DAY".equals(timeOffRequestApiDTO.getTipologia())) {
             validatePartialDay(timeOffRequestApiDTO);
         } else {
             throw new IllegalArgumentException("tipologia must be either FULL_DAY or PARTIAL_DAY");
