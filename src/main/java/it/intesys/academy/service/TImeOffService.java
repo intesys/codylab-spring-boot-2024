@@ -23,18 +23,18 @@ public class TImeOffService {
         this.timeOffAPIDTOValidator = timeOffAPIDTOValidator;
     }
 
-    public List<TimeOffRequestApiDTO> getTimeOffRequests(String user) {
-        userRepository.findById(Long.parseLong(user))
+    public List<TimeOffRequestApiDTO> getTimeOffRequests(Long userId) {
+        userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        return timeOffRepository.findByUserId(Long.parseLong(user))
+        return timeOffRepository.findByUserId(userId)
                 .stream()
                 .map(TimeOffModelMapper::fromEntityToAPIDTO)
                 .toList();
     }
 
-    public TimeOffRequestApiDTO getTimeOffRequest(String requestId, String user) {
-        userRepository.findById(Long.parseLong(user))
+    public TimeOffRequestApiDTO getTimeOffRequest(String requestId, Long userId) {
+        userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         return timeOffRepository.findById(Long.parseLong(requestId))
@@ -42,8 +42,8 @@ public class TImeOffService {
                 .orElseThrow(() -> new IllegalArgumentException("Time off request not found"));
     }
 
-    public TimeOffRequestApiDTO createTimeOffRequest(String userId, TimeOffRequestApiDTO timeOffRequestApiDTO) {
-        User user = userRepository.findById(Long.parseLong(userId))
+    public TimeOffRequestApiDTO createTimeOffRequest(Long userId, TimeOffRequestApiDTO timeOffRequestApiDTO) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         timeOffAPIDTOValidator.validate(timeOffRequestApiDTO);
@@ -56,21 +56,21 @@ public class TImeOffService {
         return TimeOffModelMapper.fromEntityToAPIDTO(timeOffRequest);
     }
 
-    public void deleteTimeOffRequest(String requestId, String user) {
-        userRepository.findById(Long.parseLong(user))
+    public void deleteTimeOffRequest(String requestId, Long userId) {
+        userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         timeOffRepository.deleteById(Long.parseLong(requestId));
     }
 
-    public TimeOffRequestApiDTO updateTimeOffRequest(TimeOffRequestApiDTO timeOffRequestApiDTO, String user) {
-        userRepository.findById(Long.parseLong(user))
+    public TimeOffRequestApiDTO updateTimeOffRequest(TimeOffRequestApiDTO timeOffRequestApiDTO, Long userId) {
+        userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         timeOffAPIDTOValidator.validate(timeOffRequestApiDTO);
 
         var timeOffRequest = TimeOffModelMapper.fromAPIDTOtoEntity(timeOffRequestApiDTO);
-        timeOffRequest.setUser(userRepository.findById(Long.parseLong(user)).orElseThrow());
+        timeOffRequest.setUser(userRepository.findById(userId).orElseThrow());
 
         timeOffRequest = timeOffRepository.save(timeOffRequest);
 

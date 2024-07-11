@@ -23,12 +23,6 @@ paths:
           schema:
             type: string
             format: int64
-        - name: user
-          in: header
-          required: false
-          schema:
-            type: string
-            format: int64
       responses:
         '200':
           description: OK
@@ -44,12 +38,6 @@ paths:
         - name: requestId
           in: path
           required: true
-          schema:
-            type: string
-            format: int64
-        - name: user
-          in: header
-          required: false
           schema:
             type: string
             format: int64
@@ -76,12 +64,6 @@ paths:
           schema:
             type: string
             format: int64
-        - name: user
-          in: header
-          required: false
-          schema:
-            type: string
-            format: int64
       responses:
         '204':
           description: No Content
@@ -91,13 +73,6 @@ paths:
       tags:
         - Time Off
       operationId: getTimeOffRequests
-      parameters:
-        - name: user
-          in: header
-          required: false
-          schema:
-            type: string
-            format: int64
       responses:
         '200':
           description: OK
@@ -111,13 +86,6 @@ paths:
       tags:
         - Time Off
       operationId: createTimeOffRequest
-      parameters:
-        - name: user
-          in: header
-          required: false
-          schema:
-            type: string
-            format: int64
       requestBody:
         content:
           application/json:
