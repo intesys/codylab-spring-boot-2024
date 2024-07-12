@@ -1,5 +1,6 @@
 package it.intesys.academy.service;
 
+import it.intesys.academy.config.LogExecution;
 import it.intesys.academy.mapper.TimeOffModelMapper;
 import it.intesys.academy.model.User;
 import it.intesys.academy.repository.TimeOffRepository;
@@ -23,6 +24,7 @@ public class TImeOffService {
         this.timeOffAPIDTOValidator = timeOffAPIDTOValidator;
     }
 
+    @LogExecution
     public List<TimeOffRequestApiDTO> getTimeOffRequests(Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -33,6 +35,7 @@ public class TImeOffService {
                 .toList();
     }
 
+    @LogExecution
     public TimeOffRequestApiDTO getTimeOffRequest(String requestId, Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -42,6 +45,7 @@ public class TImeOffService {
                 .orElseThrow(() -> new IllegalArgumentException("Time off request not found"));
     }
 
+    @LogExecution
     public TimeOffRequestApiDTO createTimeOffRequest(Long userId, TimeOffRequestApiDTO timeOffRequestApiDTO) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -56,6 +60,7 @@ public class TImeOffService {
         return TimeOffModelMapper.fromEntityToAPIDTO(timeOffRequest);
     }
 
+    @LogExecution
     public void deleteTimeOffRequest(String requestId, Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -63,6 +68,7 @@ public class TImeOffService {
         timeOffRepository.deleteById(Long.parseLong(requestId));
     }
 
+    @LogExecution
     public TimeOffRequestApiDTO updateTimeOffRequest(TimeOffRequestApiDTO timeOffRequestApiDTO, Long userId) {
         userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
