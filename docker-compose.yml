@@ -1,0 +1,16 @@
+services:
+  timeoff-tracker-app:
+    image: codylab:1.0.0
+    environment:
+      SERVER_PORT: 8900
+    ports:
+      - 7800:8900
+  ytimetable-postgresql:
+    image: postgres:13.0
+    environment:
+      - POSTGRES_DB=ytimeoff
+      - POSTGRES_USER=ytimeoff
+      - POSTGRES_PASSWORD=ytimeoff
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
