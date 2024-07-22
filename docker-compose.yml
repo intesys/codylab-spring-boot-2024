@@ -1,8 +1,11 @@
 services:
   timeoff-tracker-app:
-    image: codylab:1.0.0
+    image: codylab:1.0.1
     environment:
       SERVER_PORT: 8900
+      SPRING_DATASOURCE_URL: jdbc:postgresql://ytimetable-postgresql:5432/ytimeoff
+      SPRING_DATASOURCE_USERNAME: ytimeoff
+      SPRING_DATASOURCE_PASSWORD: ytimeoff
     ports:
       - 7800:8900
   ytimetable-postgresql:
